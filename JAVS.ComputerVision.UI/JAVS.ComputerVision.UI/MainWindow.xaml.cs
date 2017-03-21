@@ -1,4 +1,5 @@
 ﻿using JAVS.ComputerVision.UI.Controls;
+using JAVS.ComputerVison.Core.FaceDetection;
 using JAVS.ComputerVison.Core.Helper;
 using JAVS.ComputerVison.Core.MotionDetection;
 using System;
@@ -94,7 +95,7 @@ namespace JAVS.ComputerVision.UI
         {
             if (CameraReady)
             {
-                _camera = new CameraManager(new JavsMotion());
+                _camera = new CameraManager(new JavsFacesEmgu());
                 _camera.GetImages();
                 _camera.StartCamera += AttachFrames;
             }
