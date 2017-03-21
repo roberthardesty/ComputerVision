@@ -1,0 +1,51 @@
+﻿<Window x:Class="JAVS.ComputerVision.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JAVS.ComputerVision.UI"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="1000" Width="1250">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="600"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button x:Name="buttonCloseDevice"
+                    Content="Close Device"
+                    Width="250" 
+                    Click="buttonCloseDevice_Click"/>
+        </Label>
+        <Label Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,50,0,0">
+            <Button x:Name="buttonOpenDevice"
+                    Content="Open Device"
+                    Width="250" 
+                    Click="buttonOpenDevice_Click"/>
+        </Label>
+        <Image Grid.Column="0"
+               x:Name="imageOriginal"
+               HorizontalAlignment="Left"
+               Height="430"
+               Margin="21,19,0,0"
+               VerticalAlignment="Top"
+               Width="570"
+               Source="{Binding ImageOriginal}"/>
+        <Image Grid.Column="1"
+            x:Name="imageProcessed1"
+            HorizontalAlignment="Left"
+            Height="430"
+            Margin="0,19,-627,0"
+            VerticalAlignment="Top"
+            Width="641"
+            Source="{Binding ProcessedImages[0]}"/>
+        <Image Grid.Column="1"
+            x:Name="imageProcessed2"
+            HorizontalAlignment="Left"
+            Height="430"
+            Margin="0,470,-626,0"
+            VerticalAlignment="Top"
+            Width="641"
+            Source="{Binding ProcessedImages[1]}"/>
+    </Grid>
+</Window>
