@@ -109,6 +109,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\LabeledIncrementor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\ResultsDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -120,6 +124,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\LabeledIncrementor.xaml.cs">
+      <DependentUpon>LabeledIncrementor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ResultsDisplay.xaml.cs">
       <DependentUpon>ResultsDisplay.xaml</DependentUpon>
