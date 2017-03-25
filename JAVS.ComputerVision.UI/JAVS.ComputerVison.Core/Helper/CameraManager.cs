@@ -13,9 +13,7 @@ namespace JAVS.ComputerVison.Core.Helper
     {
         private static VideoCapture _source;
         private IDetect _detectionManager;
-
         private List<BitmapSource> _processedFrames;
-
         private BitmapSource _originalFrame;
 
         public int FrameCount;
@@ -32,12 +30,6 @@ namespace JAVS.ComputerVison.Core.Helper
             set { _originalFrame = value; }
         }
 
-        public CameraManager(IDetect d)
-        {
-            _detectionManager = d;
-            FrameCount = _detectionManager.ProcessCount();
-        }
-
         public static bool CanCapture()
         {
             try
@@ -52,6 +44,11 @@ namespace JAVS.ComputerVison.Core.Helper
             if (_source == null) return false;
             _source.Dispose();
             return true;
+        }
+
+        public void SetDetector(IDetect detect)
+        {
+            _detectionManager = detect;
         }
         public void GetImages()
         {

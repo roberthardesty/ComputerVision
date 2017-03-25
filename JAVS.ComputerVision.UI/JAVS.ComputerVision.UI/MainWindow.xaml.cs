@@ -84,6 +84,7 @@ namespace JAVS.ComputerVision.UI
         public MainWindow()
         {
             InitializeComponent();
+            _camera = new CameraManager();
             this.DataContext = this;
         }
 
@@ -107,6 +108,8 @@ namespace JAVS.ComputerVision.UI
                 _camera.StartCamera -= AttachFrames;
                 _camera.Dispose();
                 _camera = null;
+                ProcessedImages = null;
+                ImageOriginal = null;
             }
         }
 
@@ -114,7 +117,6 @@ namespace JAVS.ComputerVision.UI
         {
             if (_selectedDetector != null && CameraReady)
             {
-                _camera = new CameraManager(_selectedDetector);
                 _camera.GetImages();
                 _camera.StartCamera += AttachFrames;
             }
@@ -124,8 +126,7 @@ namespace JAVS.ComputerVision.UI
         {
             if(_camera != null)
             {
-                _camera.StartCamera -= AttachFrames;
-                _camera.Dispose();
+                _camera.SetDetector(_selectedDetector);
             }
         }
 
