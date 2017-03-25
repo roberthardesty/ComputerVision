@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JAVS.ComputerVision.UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1000" Width="1250">
-    <Grid>
+        Title="MainWindow" Height="800" Width="1250">
+    <Grid Margin="0,0,0.2,0.4">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="600"></ColumnDefinition>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -23,29 +23,38 @@
                     Width="250" 
                     Click="buttonOpenDevice_Click"/>
         </Label>
+        <ComboBox x:Name="DetectorSelector"
+                  ItemsSource="{Binding Detectors}"
+                  DisplayMemberPath="DisplayName"
+                  SelectedValue="{Binding SelectedDetector}"
+                  Width="250"
+                  Grid.Column="0"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Margin="0,100,0,0" SelectionChanged="DetectorSelector_SelectionChanged"/>
         <Image Grid.Column="0"
                x:Name="imageOriginal"
                HorizontalAlignment="Left"
-               Height="430"
-               Margin="21,19,0,0"
+               Height="327"
+               Margin="55,10,0,0"
                VerticalAlignment="Top"
-               Width="570"
+               Width="461"
                Source="{Binding ImageOriginal}"/>
         <Image Grid.Column="1"
             x:Name="imageProcessed1"
             HorizontalAlignment="Left"
-            Height="430"
-            Margin="0,19,-627,0"
+            Height="280"
+            Margin="62.2,46,-551.2,0"
             VerticalAlignment="Top"
-            Width="641"
+            Width="515"
             Source="{Binding ProcessedImages[0]}"/>
         <Image Grid.Column="1"
             x:Name="imageProcessed2"
             HorizontalAlignment="Left"
-            Height="430"
-            Margin="0,470,-626,0"
+            Height="280"
+            Margin="62.2,370,-550.4,0"
             VerticalAlignment="Top"
-            Width="641"
+            Width="515"
             Source="{Binding ProcessedImages[1]}"/>
     </Grid>
 </Window>

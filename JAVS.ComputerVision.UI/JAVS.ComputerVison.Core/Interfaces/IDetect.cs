@@ -9,6 +9,7 @@ namespace JAVS.ComputerVison.Core.Interfaces
 {
     public interface IDetect
     {
+        string DisplayName { get; }
         List<IImage> ProcessFrame(IImage original);
         int ProcessCount();
     }

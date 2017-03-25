@@ -86,9 +86,9 @@ namespace JAVS.ComputerVison.Core.Helper
         public void Dispose()
         {
             _source.ImageGrabbed -= ConvertFrame;
-
             _source.Stop();
             _source.Dispose();
+            _source = null;
         }
 
     }

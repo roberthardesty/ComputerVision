@@ -91,20 +91,41 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FaceDetection\JavsFacesEmgu.cs" />
+    <Compile Include="Detectors\FaceDetection\JavsFacesEmgu.cs" />
+    <Compile Include="Detectors\PedestrianDetection\JavsPerson.cs" />
     <Compile Include="Helper\CameraManager.cs" />
     <Compile Include="Helper\MatConverter.cs" />
     <Compile Include="Interfaces\IDetect.cs" />
-    <Compile Include="MotionDetection\JavsMotion.cs" />
+    <Compile Include="Detectors\MotionDetection\JavsMotion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="cvextern.dll" />
+    <Content Include="Data\CascadeData\haarcascade_eye.xml" />
+    <Content Include="Data\CascadeData\haarcascade_eye_tree_eyeglasses.xml" />
+    <Content Include="Data\CascadeData\haarcascade_frontalcatface.xml" />
+    <Content Include="Data\CascadeData\haarcascade_frontalcatface_extended.xml" />
+    <Content Include="Data\CascadeData\haarcascade_frontalface_alt.xml" />
+    <Content Include="Data\CascadeData\haarcascade_frontalface_alt2.xml" />
+    <Content Include="Data\CascadeData\haarcascade_frontalface_alt_tree.xml" />
+    <Content Include="Data\CascadeData\haarcascade_frontalface_default.xml" />
+    <Content Include="Data\CascadeData\haarcascade_fullbody.xml" />
+    <Content Include="Data\CascadeData\haarcascade_lefteye_2splits.xml" />
+    <Content Include="Data\CascadeData\haarcascade_licence_plate_rus_16stages.xml" />
+    <Content Include="Data\CascadeData\haarcascade_lowerbody.xml" />
+    <Content Include="Data\CascadeData\haarcascade_profileface.xml" />
+    <Content Include="Data\CascadeData\haarcascade_righteye_2splits.xml" />
+    <Content Include="Data\CascadeData\haarcascade_russian_plate_number.xml" />
+    <Content Include="Data\CascadeData\haarcascade_smile.xml" />
+    <Content Include="Data\CascadeData\haarcascade_upperbody.xml" />
     <Content Include="msvcp140.dll" />
     <Content Include="opencv_ffmpeg310_64.dll" />
     <Content Include="vcruntime140.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Detectors\ColorDetection\" />
+    <Folder Include="Detectors\UpperTorsoDetection\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
