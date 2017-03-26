@@ -51,7 +51,7 @@ namespace JAVS.ComputerVision.UI.Controls
 
         public void UpdateFrame()
         {
-            MyImage = MyParent.ImageOriginal;
+            MyImage = MyParent.OriginalImage;
         }
 
         void NotifyPropertyChanged([CallerMemberName] String propertyName = "")

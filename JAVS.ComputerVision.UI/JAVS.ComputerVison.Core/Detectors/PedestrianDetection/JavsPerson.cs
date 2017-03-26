@@ -14,18 +14,51 @@ using Emgu.CV.Cuda;
 
 namespace JAVS.ComputerVison.Core.Detectors.PedestrianDetection
 {
-    public class JavsPerson : IDetect
+    public class JavsPerson : BaseDetector, IDetect
     {
+        public Dictionary<string, ParameterProfile> AdjustableParameters { get; set; }
+
         public string DisplayName { get { return "Person Detection (EmguCV)"; } }
 
-        public int ProcessCount()
+        public JavsPerson()
         {
-            return 1;
+            AdjustableParameters = new Dictionary<string, ParameterProfile>();
+            AdjustableParameters["Scale"] = new ParameterProfile
+            {
+                Description = "Coefficient of the detection window increase",
+                MaxValue = 2,
+                MinValue = 1,
+                CurrentValue = 1.05,
+                Interval = 0.01
+            };
+            AdjustableParameters["SimilarityThreshold"] = new ParameterProfile
+            {
+                Description = "Minimum similarity Threshold, 0 = no grouping",
+                MaxValue = 10,
+                MinValue = 0,
+                CurrentValue = 2,
+                Interval = 0.5
+            };
+            AdjustableParameters["MeanShiftGrouping"] = new ParameterProfile
+            {
+                Description = "Use (1) or don't use (0) Mean Shift Grouping",
+                MaxValue = 1,
+                MinValue = 0,
+                CurrentValue = 0,
+                Interval = 1
+            };
+        }
+
+        int IDetect.ProcessCount
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public List<IImage> ProcessFrame(IImage original)
         {
-            IImage originalClone = (IImage)original.Clone();
             Rectangle[] peopleRegion;
 
             using (InputArray iaImage = original.GetInputArray())
@@ -57,15 +90,16 @@ namespace JAVS.ComputerVison.Core.Detectors.PedestrianDetection
                     {
                         peopleDescriptor.SetSVMDetector(HOGDescriptor.GetDefaultPeopleDetector());
 
-                        MCvObjectDetection[] peopleFound = peopleDescriptor.DetectMultiScale(original);
+                        MCvObjectDetection[] peopleFound = peopleDescriptor
+                            .DetectMultiScale(original, 0, default(Size), default(Size), AdjustableParameters["Scale"].CurrentValue ,AdjustableParameters["SimilarityThreshold"].CurrentValue, AdjustableParameters["MeanShiftGrouping"].CurrentValue==1);
                         peopleRegion = new Rectangle[peopleFound.Length];
                         for (int i = 0; i < peopleFound.Length; i++)
                             peopleRegion[i] = peopleFound[i].Rect;
                     }
                 }
-                foreach (var person in peopleRegion)
-                    CvInvoke.Rectangle(originalClone, person, new Bgr(Color.Red).MCvScalar, 2);
-                return new List<IImage> { originalClone };
+
+                IImage copy = CopyAndDraw(original, peopleRegion);
+                return new List<IImage> { copy };
             }
         }
     }

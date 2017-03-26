@@ -10,18 +10,46 @@ using System.Threading.Tasks;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
 using JAVS.ComputerVison.Core.Interfaces;
+using JAVS.ComputerVison.Core.Detectors;
 
 namespace JAVS.ComputerVison.Core.MotionDetection
 {
-    public class JavsMotion : IDetect
+    public class JavsMotion : BaseDetector, IDetect
     {
         private MotionHistory _motionHistory;
         private BackgroundSubtractor _backgroundSubtractor;
 
         public string DisplayName { get { return "Motion Detection (EmguCV)"; } }
 
+        public Dictionary<string, ParameterProfile> AdjustableParameters { get; set; }
+
+        int IDetect.ProcessCount
+        {
+            get
+            {
+                return 2;
+            }
+        }
+
         public JavsMotion()
         {
+            AdjustableParameters = new Dictionary<string, ParameterProfile>();
+            AdjustableParameters["MinMotionArea"] = new ParameterProfile
+            {
+                Description = "Minimum Motion Size Threshold",
+                MaxValue = 1000,
+                MinValue = 5,
+                CurrentValue = 100,
+                Interval = 1
+            };
+            AdjustableParameters["MinMotionDistance"] = new ParameterProfile
+            {
+                Description = "Minimum Motion Distance Threshold",
+                MaxValue = 1,
+                MinValue = 0.005,
+                CurrentValue = 0.05,
+                Interval = 0.005
+            };
             //Try out various background subtractors
             _backgroundSubtractor = new BackgroundSubtractorMOG2();
             //Can the parameters taken by this constructor be adjusted during capture?
@@ -33,14 +61,14 @@ namespace JAVS.ComputerVison.Core.MotionDetection
 
         public List<IImage> ProcessFrame(IImage original)
         {
-            List<IImage> processedImages = new List<IImage>(); 
+            List<IImage> processedImages = new List<IImage>();
             Mat foregroundBlobs = new Mat();
             Mat motionMask = new Mat();
             Mat segmentMask = new Mat();
             //threshold to define the minimum motion area
-            double minArea = 100;
+            double minArea = AdjustableParameters["MinMotionArea"].CurrentValue;
             //threshold to define the minimun motion 1/20th of the size of the bounding blob
-            double minMotion = 1 / 20;
+            double minMotion = AdjustableParameters["MinMotionDistance"].CurrentValue;
             Rectangle[] motionComponents;
 
             _backgroundSubtractor.Apply(original, foregroundBlobs);
@@ -64,14 +92,14 @@ namespace JAVS.ComputerVison.Core.MotionDetection
             CvInvoke.InsertChannel(motionMask, motionImage, 0);
 
             //Get the motion components
-            using(VectorOfRect boundingRect = new VectorOfRect())
+            using (VectorOfRect boundingRect = new VectorOfRect())
             {
                 _motionHistory.GetMotionComponents(segmentMask, boundingRect);
                 motionComponents = boundingRect.ToArray();
             }
 
             //Loop through the motion components
-            foreach(Rectangle component in motionComponents)
+            foreach (Rectangle component in motionComponents)
             {
                 int area = component.Width * component.Height;
                 //reject components that are smaller that the threshold
@@ -90,13 +118,13 @@ namespace JAVS.ComputerVison.Core.MotionDetection
             // find and draw the overall motion angle
             double overallAngle, overallMotionPixelCount;
 
-            _motionHistory.MotionInfo(foregroundBlobs , new Rectangle(Point.Empty, motionMask.Size), out overallAngle, out overallMotionPixelCount);
+            _motionHistory.MotionInfo(foregroundBlobs, new Rectangle(Point.Empty, motionMask.Size), out overallAngle, out overallMotionPixelCount);
             DrawMotion(motionImage, new Rectangle(Point.Empty, motionMask.Size), overallAngle, new Bgr(Color.Green));
 
             processedImages.Add(foregroundBlobs);
             processedImages.Add(motionImage);
             processedImages.Add(segmentMask);
-            return processedImages;           
+            return processedImages;
         }
 
         private static void DrawMotion(IInputOutputArray image, Rectangle motionRegion, double angle, Bgr color)
@@ -117,11 +145,6 @@ namespace JAVS.ComputerVison.Core.MotionDetection
             LineSegment2D line = new LineSegment2D(center, pointOnCircle);
             CvInvoke.Circle(image, Point.Round(circle.Center), (int)circle.Radius, color.MCvScalar);
             CvInvoke.Line(image, line.P1, line.P2, color.MCvScalar);
-        }
-
-        public int ProcessCount()
-        {
-            return 3;
         }
     }
 }
