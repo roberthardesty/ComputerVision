@@ -179,7 +179,7 @@ namespace JAVS.ComputerVison.Core.FaceDetection
                 Description = "Minimum number of nearby matching features to qualify as face",
                 MaxValue = 25,
                 MinValue = 1,
-                CurrentValue = 3,
+                CurrentValue = 7,
                 Interval = 1
             };
             AdjustableParameters["MinimumSearchSize"] = new ParameterProfile
@@ -187,7 +187,7 @@ namespace JAVS.ComputerVison.Core.FaceDetection
                 Description = "Minimum Length/Width of Search Square in pixels",
                 MaxValue = 200,
                 MinValue = 1,
-                CurrentValue = 20,
+                CurrentValue = 40,
                 Interval = 1
             };
             AdjustableParameters["BoundsX"] = new ParameterProfile
@@ -195,7 +195,7 @@ namespace JAVS.ComputerVison.Core.FaceDetection
                 Description = "X location of bounding rectangle",
                 MaxValue = 10000,
                 MinValue = 0,
-                CurrentValue = 0,
+                CurrentValue = 190,
                 Interval = 10
             };
             AdjustableParameters["BoundsY"] = new ParameterProfile
@@ -203,7 +203,7 @@ namespace JAVS.ComputerVison.Core.FaceDetection
                 Description = "Y location of bounding rectangle",
                 MaxValue = 10000,
                 MinValue = 0,
-                CurrentValue = 0,
+                CurrentValue = 60,
                 Interval = 10
             };
             AdjustableParameters["BoundsHeight"] = new ParameterProfile
@@ -211,7 +211,7 @@ namespace JAVS.ComputerVison.Core.FaceDetection
                 Description = "Height of bounding rectangle",
                 MaxValue = 10000,
                 MinValue = 0,
-                CurrentValue = 0,
+                CurrentValue = 380,
                 Interval = 10
             };
             AdjustableParameters["BoundsWidth"] = new ParameterProfile
@@ -219,7 +219,7 @@ namespace JAVS.ComputerVison.Core.FaceDetection
                 Description = "Width of bounding rectangle",
                 MaxValue = 10000,
                 MinValue = 0,
-                CurrentValue = 0,
+                CurrentValue = 240,
                 Interval = 10
             };
         }

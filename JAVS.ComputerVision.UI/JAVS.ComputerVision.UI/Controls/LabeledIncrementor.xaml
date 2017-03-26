@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:JAVS.ComputerVision.UI.Controls"
-             mc:Ignorable="d" d:DesignWidth="300" Height="80">
+             mc:Ignorable="d" d:DesignWidth="300" Height="40">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -13,7 +13,8 @@
         <TextBlock Grid.Column="0"
                x:Name="IncrementorDescription"
                TextWrapping="Wrap"
-               Text="Test"></TextBlock>
+               Text="Test"
+               FontSize="11"></TextBlock>
         <StackPanel Grid.Column="1" Orientation="Horizontal">
             <TextBox x:Name="txtNum" x:FieldModifier="private" Margin="5,5,0,5" Width="50" Text="0" TextChanged="txtNum_TextChanged" />
             <Button x:Name="cmdUp" x:FieldModifier="private" Margin="5,5,0,5" Content="˄" Width="20" Click="cmdUp_Click" />
