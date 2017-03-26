@@ -29,6 +29,7 @@ namespace JAVS.ComputerVision.UI
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        private bool _cameraReady;
         private BitmapSource _imageOriginal;
         private CameraManager _camera;
         private List<BitmapSource> _processedImages;
@@ -41,7 +42,6 @@ namespace JAVS.ComputerVision.UI
         };
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public bool CameraReady => CameraManager.CanCapture();
         public IDetect SelectedDetector
         {
             get { return _selectedDetector; }
@@ -55,7 +55,7 @@ namespace JAVS.ComputerVision.UI
         {
             get { return _detectors; }
         }
-        public BitmapSource ImageOriginal
+        public BitmapSource OriginalImage
         {
             get
             {
@@ -85,9 +85,10 @@ namespace JAVS.ComputerVision.UI
         {
             InitializeComponent();
             _camera = new CameraManager();
+            _cameraReady = _camera.CanCapture();
             this.DataContext = this;
         }
-
+        //Does the needed freezing for threads and sets frames to bindable props
         void AttachFrames(object sender, EventArgs e)
         {
             _processedImages = new List<BitmapSource>();
@@ -97,9 +98,10 @@ namespace JAVS.ComputerVision.UI
                 _processedImages.Add(_camera.ProcessedFrames[i]);
             }
             _camera.OriginalFrame.Freeze();
-            ImageOriginal = _camera.OriginalFrame;
+            OriginalImage = _camera.OriginalFrame;
             NotifyPropertyChanged("ProcessedImages");
         }
+        //Generates LabeledIncrementors based on availible adjustable parameters.
         void SetUpIncrementors()
         {
             if (_camera.CurrentParameters != null)
@@ -117,19 +119,19 @@ namespace JAVS.ComputerVision.UI
         {
             if (_camera!=null)
             {
-                _camera.StartCamera -= AttachFrames;
+                _camera.NewFrame -= AttachFrames;
                 _camera.Dispose();
                 ProcessedImages = null;
-                ImageOriginal = null;
+                OriginalImage = null;
             }
         }
 
         void buttonOpenDevice_Click(object sender, RoutedEventArgs e)
         {
-            if (_selectedDetector != null && CameraReady)
+            if (_selectedDetector != null && _cameraReady)
             {
                 _camera.GetImages();
-                _camera.StartCamera += AttachFrames;
+                _camera.NewFrame += AttachFrames;
             }
         }
 

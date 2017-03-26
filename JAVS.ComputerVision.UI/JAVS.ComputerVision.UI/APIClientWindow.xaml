@@ -1,0 +1,19 @@
+﻿<Window x:Class="JAVS.ComputerVision.UI.APIClientWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JAVS.ComputerVision.UI"
+        mc:Ignorable="d"
+        Title="APIClientWindow" Height="300" Width="300">
+    <Grid>
+        <TextBlock x:Name="ResultsTextBlock" HorizontalAlignment="Left" Height="131" Margin="10,10,0,0" TextWrapping="Wrap" Text="Results" VerticalAlignment="Top" Width="107"/>
+        <ComboBox x:Name="ActionSelectionBox" HorizontalAlignment="Left" Height="21" Margin="10,146,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="OpenFile" Content="Open File" HorizontalAlignment="Left" Height="22" Margin="10,183,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="ActionOptions" HorizontalAlignment="Left" Height="22" Margin="10,210,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="ActionInvoke" Content="Send" HorizontalAlignment="Left" Height="22" Margin="10,237,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.54,1.543"/>
+        <Image x:Name="LoadedFile" HorizontalAlignment="Left" Height="131" Margin="140,10,0,0" VerticalAlignment="Top" Width="142"/>
+        <TextBox x:Name="ActionOptionsTextBox" Text="Input" HorizontalAlignment="Left" Height="36" Margin="167,158,0,0" VerticalAlignment="Top" Width="115"/>
+        <TextBlock x:Name="ActionDetailsTextBlock" HorizontalAlignment="Left" Height="57" Margin="167,202,0,0" TextWrapping="Wrap" Text="Details" VerticalAlignment="Top" Width="115"/>
+    </Grid>
+</Window>

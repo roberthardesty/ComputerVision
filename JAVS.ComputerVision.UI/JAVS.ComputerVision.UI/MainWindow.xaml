@@ -44,7 +44,7 @@
                Margin="55,10,0,0"
                VerticalAlignment="Top"
                Width="461"
-               Source="{Binding ImageOriginal}"/>
+               Source="{Binding OriginalImage}"/>
         <Image Grid.Column="1"
             x:Name="imageProcessed1"
             HorizontalAlignment="Left"
