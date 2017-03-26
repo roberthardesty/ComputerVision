@@ -100,14 +100,25 @@ namespace JAVS.ComputerVision.UI
             ImageOriginal = _camera.OriginalFrame;
             NotifyPropertyChanged("ProcessedImages");
         }
-
+        void SetUpIncrementors()
+        {
+            if (_camera.CurrentParameters != null)
+            {
+                int counter = 0;
+                this.IncrementControlGrid.Children.Clear();
+                foreach (string key in _camera.CurrentParameters.Keys)
+                {
+                    counter++;
+                    this.IncrementControlGrid.Children.Add(new LabeledIncrementor(_camera.CurrentParameters[key]) {Margin= new Thickness(0, 85*counter,0,0)});
+                }
+            }
+        }
         void buttonCloseDevice_Click(object sender, RoutedEventArgs e)
         {
             if (_camera!=null)
             {
                 _camera.StartCamera -= AttachFrames;
                 _camera.Dispose();
-                _camera = null;
                 ProcessedImages = null;
                 ImageOriginal = null;
             }
@@ -127,6 +138,7 @@ namespace JAVS.ComputerVision.UI
             if(_camera != null)
             {
                 _camera.SetDetector(_selectedDetector);
+                SetUpIncrementors();
             }
         }
 

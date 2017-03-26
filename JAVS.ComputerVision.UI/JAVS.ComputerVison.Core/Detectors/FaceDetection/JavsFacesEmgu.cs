@@ -8,17 +8,16 @@ using Emgu.CV;
 using System.Diagnostics;
 using System.Drawing;
 using Emgu.CV.Structure;
+using JAVS.ComputerVison.Core.Detectors;
 #if !(__IOS__ || NETFX_CORE)
 using Emgu.CV.Cuda;
 #endif
 
 namespace JAVS.ComputerVison.Core.FaceDetection
 {
-    public class JavsFacesEmgu : IDetect
+    public class JavsFacesEmgu : BaseDetector, IDetect
     {
         private Stopwatch watch;
-
-        private long detectionTime;
 
 //      private string uppertorsoFileName = @"C:\Users\roberth\MyProjects\ComputerVision\JAVS.ComputerVision.UI\JAVS.ComputerVison.Core\Data\CascadeData\haarcascade_fullbody.xml";
 
@@ -26,11 +25,23 @@ namespace JAVS.ComputerVison.Core.FaceDetection
 
         private string eyeFileName = @"C:\Users\roberth\MyProjects\ComputerVision\JAVS.ComputerVision.UI\JAVS.ComputerVison.Core\Data\CascadeData\haarcascade_eye_tree_eyeglasses.xml";
 
-        public string DisplayName { get { return "Face Detection (EmguCV)"; } }
-        public int ProcessCount()
+        public JavsFacesEmgu()
         {
-            return 1;
+            LoadParameters();
         }
+
+        public string DisplayName { get { return "Face Detection (EmguCV)"; } }
+
+        public Dictionary<string, ParameterProfile> AdjustableParameters { get; set; }
+
+        int IDetect.ProcessCount
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public List<IImage> ProcessFrame(IImage original)
         {
             List<Rectangle> faces = new List<Rectangle>();
@@ -52,16 +63,15 @@ namespace JAVS.ComputerVison.Core.FaceDetection
             }
         }
 
-        private IImage Detect(IImage original, List<Rectangle> faces, List<Rectangle> eyes)
+        IImage Detect(IImage original, List<Rectangle> faces, List<Rectangle> eyes)
         {
-            IImage originalClone = (IImage)original.Clone();
             //Read the HaarCascade objects
             using (CascadeClassifier face = new CascadeClassifier(faceFileName))
            // using (CascadeClassifier eye = new CascadeClassifier(eyeFileName))
             {
                 using (UMat ugray = new UMat())
                 {
-                    CvInvoke.CvtColor(originalClone, ugray, Emgu.CV.CvEnum.ColorConversion.Bgr2Gray);
+                    CvInvoke.CvtColor(original, ugray, Emgu.CV.CvEnum.ColorConversion.Bgr2Gray);
 
                     //normalizes brightness and increases contrast of the image
                     CvInvoke.EqualizeHist(ugray, ugray);
@@ -71,9 +81,9 @@ namespace JAVS.ComputerVison.Core.FaceDetection
                     //The second dimension is the index of the rectangle in the specific channel
                     Rectangle[] facesDetected = face.DetectMultiScale(
                         ugray,
-                        1.1,
-                        5,
-                        new Size(20, 20));
+                        AdjustableParameters["ScaleStepRatio"].CurrentValue,
+                        (int)AdjustableParameters["MinimumNieghbors"].CurrentValue,
+                        new Size((int)AdjustableParameters["MinimumSearchSize"].CurrentValue, (int)AdjustableParameters["MinimumSearchSize"].CurrentValue));
 
                     faces.AddRange(facesDetected);
 
@@ -97,18 +107,18 @@ namespace JAVS.ComputerVison.Core.FaceDetection
                     //    }
                     //}
                 }
-                    foreach (Rectangle detectedFace in faces)
-                        CvInvoke.Rectangle(originalClone, detectedFace, new Bgr(Color.Red).MCvScalar, 2);
-
-                    return originalClone;
+                IImage copy;
+                if (AdjustableParameters["BoundsX"].CurrentValue > 0 && AdjustableParameters["BoundsY"].CurrentValue > 0 && AdjustableParameters["BoundsHeight"].CurrentValue > 1 && AdjustableParameters["BoundsWidth"].CurrentValue > 0)
+                    copy = CopyAndDraw(original, faces.ToArray(),
+                        new Rectangle((int)AdjustableParameters["BoundsX"].CurrentValue, (int)AdjustableParameters["BoundsY"].CurrentValue, (int)AdjustableParameters["BoundsWidth"].CurrentValue, (int)AdjustableParameters["BoundsHeight"].CurrentValue));
+                else
+                    copy = CopyAndDraw(original, faces.ToArray());
+                return copy;
         }
     }
 
-        private IImage CudaDetect(IImage original, List<Rectangle> faces, List<Rectangle> eyes)
+        IImage CudaDetect(IImage original, List<Rectangle> faces, List<Rectangle> eyes)
         {
-
-            IImage originalClone = (IImage)original.Clone();
-
             using (CudaCascadeClassifier face = new CudaCascadeClassifier(faceFileName))
                 using (CudaCascadeClassifier eye = new CudaCascadeClassifier(eyeFileName))
                 {
@@ -118,7 +128,7 @@ namespace JAVS.ComputerVison.Core.FaceDetection
                     eye.ScaleFactor = 1.1;
                     eye.MinNeighbors = 10;
                     eye.MinObjectSize = Size.Empty;
-                    using (CudaImage<Bgr, Byte> gpuImage = new CudaImage<Bgr, byte>(originalClone))
+                    using (CudaImage<Bgr, Byte> gpuImage = new CudaImage<Bgr, byte>(original))
                     using (CudaImage<Gray, Byte> gpuGray = gpuImage.Convert<Gray, Byte>())
                     using (GpuMat region = new GpuMat())
                     {
@@ -147,18 +157,71 @@ namespace JAVS.ComputerVison.Core.FaceDetection
                         }
                     }
                 }
-                return AttachFacesToImage(originalClone, faces/*, eyes*/);
+            IImage copy = CopyAndDraw(original, faces.ToArray());
+            copy = CopyAndDraw(copy, eyes.ToArray());
+            return copy;
                 //return eyes;
         }
 
-        public IImage AttachFacesToImage(IImage image, List<Rectangle> faces/*, List<Rectangle> eyes*/)
+        void LoadParameters()
         {
-            foreach (Rectangle face in faces)
-                CvInvoke.Rectangle(image, face, new Bgr(Color.Red).MCvScalar, 2);
-            //foreach (Rectangle eye in eyes)
-              //  CvInvoke.Rectangle(image, eye, new Bgr(Color.Blue).MCvScalar, 2);
-
-            return image;
+            AdjustableParameters = new Dictionary<string, ParameterProfile>();
+            AdjustableParameters["ScaleStepRatio"] = new ParameterProfile
+            {
+                Description = "Ratio of the new scale to the old scale when stepping up scales",
+                MaxValue = 3,
+                MinValue = 1.001,
+                CurrentValue = 1.1,
+                Interval = 0.001
+            };
+            AdjustableParameters["MinimumNieghbors"] = new ParameterProfile
+            {
+                Description = "Minimum number of nearby matching features to qualify as face",
+                MaxValue = 25,
+                MinValue = 1,
+                CurrentValue = 3,
+                Interval = 1
+            };
+            AdjustableParameters["MinimumSearchSize"] = new ParameterProfile
+            {
+                Description = "Minimum Length/Width of Search Square in pixels",
+                MaxValue = 200,
+                MinValue = 1,
+                CurrentValue = 20,
+                Interval = 1
+            };
+            AdjustableParameters["BoundsX"] = new ParameterProfile
+            {
+                Description = "X location of bounding rectangle",
+                MaxValue = 10000,
+                MinValue = 0,
+                CurrentValue = 0,
+                Interval = 10
+            };
+            AdjustableParameters["BoundsY"] = new ParameterProfile
+            {
+                Description = "Y location of bounding rectangle",
+                MaxValue = 10000,
+                MinValue = 0,
+                CurrentValue = 0,
+                Interval = 10
+            };
+            AdjustableParameters["BoundsHeight"] = new ParameterProfile
+            {
+                Description = "Height of bounding rectangle",
+                MaxValue = 10000,
+                MinValue = 0,
+                CurrentValue = 0,
+                Interval = 10
+            };
+            AdjustableParameters["BoundsWidth"] = new ParameterProfile
+            {
+                Description = "Width of bounding rectangle",
+                MaxValue = 10000,
+                MinValue = 0,
+                CurrentValue = 0,
+                Interval = 10
+            };
         }
     }
 }

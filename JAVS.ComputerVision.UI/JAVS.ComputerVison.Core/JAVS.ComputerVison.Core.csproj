@@ -91,6 +91,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Detectors\BaseDetector.cs" />
+    <Compile Include="Detectors\ParameterProfile.cs" />
     <Compile Include="Detectors\FaceDetection\JavsFacesEmgu.cs" />
     <Compile Include="Detectors\PedestrianDetection\JavsPerson.cs" />
     <Compile Include="Helper\CameraManager.cs" />

@@ -32,6 +32,11 @@
                   HorizontalAlignment="Center"
                   VerticalAlignment="Center"
                   Margin="0,100,0,0" SelectionChanged="DetectorSelector_SelectionChanged"/>
+        <Grid x:Name="IncrementControlGrid"
+              VerticalAlignment="Center"
+              Margin="0,200,0,0">
+            
+        </Grid>
         <Image Grid.Column="0"
                x:Name="imageOriginal"
                HorizontalAlignment="Left"

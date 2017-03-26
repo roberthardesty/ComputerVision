@@ -1,4 +1,5 @@
 ﻿using Emgu.CV;
+using JAVS.ComputerVison.Core.Detectors;
 using JAVS.ComputerVison.Core.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,12 @@ namespace JAVS.ComputerVison.Core.Helper
         private BitmapSource _originalFrame;
 
         public int FrameCount;
+
+        public Dictionary<string, ParameterProfile> CurrentParameters
+        {
+            get { return _detectionManager.AdjustableParameters; }
+            set { _detectionManager.AdjustableParameters = value; }
+        }
 
         public List<BitmapSource> ProcessedFrames
         {
