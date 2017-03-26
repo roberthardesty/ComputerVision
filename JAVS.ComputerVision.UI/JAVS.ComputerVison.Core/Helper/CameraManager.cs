@@ -83,7 +83,7 @@ namespace JAVS.ComputerVison.Core.Helper
             }
 
             _originalFrame = MatConverter.ToBitmapSource(capturedImage);
-
+            
             StartCamera?.Invoke(null, new EventArgs());
         }
 
