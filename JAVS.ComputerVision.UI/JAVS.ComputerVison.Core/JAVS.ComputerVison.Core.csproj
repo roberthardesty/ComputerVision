@@ -91,10 +91,13 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Detectors\BaseDetector.cs" />
+    <Compile Include="Detectors\ParameterProfile.cs" />
     <Compile Include="Detectors\FaceDetection\JavsFacesEmgu.cs" />
     <Compile Include="Detectors\PedestrianDetection\JavsPerson.cs" />
     <Compile Include="Helper\CameraManager.cs" />
     <Compile Include="Helper\MatConverter.cs" />
+    <Compile Include="Helper\StreamConverter.cs" />
     <Compile Include="Interfaces\IDetect.cs" />
     <Compile Include="Detectors\MotionDetection\JavsMotion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

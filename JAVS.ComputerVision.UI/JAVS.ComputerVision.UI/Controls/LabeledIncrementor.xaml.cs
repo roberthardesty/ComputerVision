@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JAVS.ComputerVison.Core.Detectors;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,32 +21,34 @@ namespace JAVS.ComputerVision.UI.Controls
     /// </summary>
     public partial class LabeledIncrementor : UserControl
     {
-        private int _numValue = 0;
+        private ParameterProfile _currentProfile;
 
-        public LabeledIncrementor()
+        public LabeledIncrementor(ParameterProfile profile)
         {
             InitializeComponent();
-            txtNum.Text = _numValue.ToString();
+            _currentProfile = profile;
+            txtNum.Text = profile.CurrentValue.ToString();
+            IncrementorDescription.Text = profile.Description;          
         }
 
-        public int NumValue
+        public double NumValue
         {
-            get { return _numValue; }
+            get { return _currentProfile.CurrentValue; }
             set
             {
-                _numValue = value;
+                _currentProfile.CurrentValue = value;
                 txtNum.Text = value.ToString();
             }
         }
 
         private void cmdUp_Click(object sender, RoutedEventArgs e)
         {
-            NumValue++;
+            NumValue += _currentProfile.Interval;
         }
 
         private void cmdDown_Click(object sender, RoutedEventArgs e)
         {
-            NumValue--;
+            NumValue -= _currentProfile.Interval;
         }
 
         private void txtNum_TextChanged(object sender, TextChangedEventArgs e)
@@ -54,9 +57,12 @@ namespace JAVS.ComputerVision.UI.Controls
             {
                 return;
             }
-
-            if (!int.TryParse(txtNum.Text, out _numValue))
-                txtNum.Text = _numValue.ToString();
+            double target;
+            if (!double.TryParse(txtNum.Text, out target))
+            {
+                _currentProfile.CurrentValue = target;
+                txtNum.Text = target.ToString();
+            }
         }
     }
 }
