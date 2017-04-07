@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
-namespace JAVS.ComputerVison.Core.Helper
+namespace JAVS.ComputerVision.Core.Helper
 {
     public static class MatConverter
     {

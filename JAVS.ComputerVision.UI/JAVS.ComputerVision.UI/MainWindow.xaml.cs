@@ -1,9 +1,10 @@
 ﻿using JAVS.ComputerVision.UI.Controls;
-using JAVS.ComputerVison.Core.Detectors.PedestrianDetection;
-using JAVS.ComputerVison.Core.FaceDetection;
-using JAVS.ComputerVison.Core.Helper;
-using JAVS.ComputerVison.Core.Interfaces;
-using JAVS.ComputerVison.Core.MotionDetection;
+using JAVS.ComputerVision.Core.Detectors.FaceDetection;
+using JAVS.ComputerVision.Core.Detectors.PedestrianDetection;
+using JAVS.ComputerVision.Core.FaceDetection;
+using JAVS.ComputerVision.Core.Helper;
+using JAVS.ComputerVision.Core.Interfaces;
+using JAVS.ComputerVision.Core.MotionDetection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,6 +37,7 @@ namespace JAVS.ComputerVision.UI
         private IDetect _selectedDetector;
         private List<IDetect> _detectors = new List<IDetect>()
         {
+            new JAVSFaceTrainer(),
             new JavsFacesEmgu(),
             new JavsMotion(),
             new JavsPerson(),
@@ -138,9 +140,16 @@ namespace JAVS.ComputerVision.UI
         void DetectorSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(_camera != null)
-            {
-                _camera.SetDetector(_selectedDetector);
-                SetUpIncrementors();
+            { 
+                if(_selectedDetector == _detectors[1])
+                {
+
+                }
+                else
+                {
+                    _camera.SetDetector(_selectedDetector);
+                    SetUpIncrementors();
+                }
             }
         }
 

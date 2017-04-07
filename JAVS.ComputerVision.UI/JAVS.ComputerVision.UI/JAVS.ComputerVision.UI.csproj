@@ -109,6 +109,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SaveFaceDialog.xaml.cs">
+      <DependentUpon>SaveFaceDialog.xaml</DependentUpon>
+    </Compile>
     <Page Include="APIClientWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -142,6 +145,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SaveFaceDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -168,12 +175,12 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="Controls\App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\JAVS.ComputerVison.Core\JAVS.ComputerVison.Core.csproj">
+    <ProjectReference Include="..\JAVS.ComputerVison.Core\JAVS.ComputerVision.Core.csproj">
       <Project>{1BD936D4-4BF1-4342-84AA-EFFC02627E35}</Project>
-      <Name>JAVS.ComputerVison.Core</Name>
+      <Name>JAVS.ComputerVision.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

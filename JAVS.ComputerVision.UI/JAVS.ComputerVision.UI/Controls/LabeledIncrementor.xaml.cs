@@ -1,4 +1,4 @@
-﻿using JAVS.ComputerVison.Core.Detectors;
+﻿using JAVS.ComputerVision.Core.Detectors;
 using System;
 using System.Collections.Generic;
 using System.Linq;

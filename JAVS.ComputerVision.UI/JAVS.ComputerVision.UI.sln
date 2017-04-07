@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JAVS.ComputerVision.UI", "JAVS.ComputerVision.UI\JAVS.ComputerVision.UI.csproj", "{01C566ED-76B1-4E4D-BFE3-54D9FB00C99C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JAVS.ComputerVison.Core", "JAVS.ComputerVison.Core\JAVS.ComputerVison.Core.csproj", "{1BD936D4-4BF1-4342-84AA-EFFC02627E35}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JAVS.ComputerVision.Core", "JAVS.ComputerVison.Core\JAVS.ComputerVision.Core.csproj", "{1BD936D4-4BF1-4342-84AA-EFFC02627E35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

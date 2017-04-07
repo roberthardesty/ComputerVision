@@ -1,6 +1,6 @@
 ﻿using Emgu.CV;
 using Emgu.CV.VideoSurveillance;
-using JAVS.ComputerVison.Core.Helper;
+using JAVS.ComputerVision.Core.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +9,10 @@ using System.Drawing;
 using System.Threading.Tasks;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
-using JAVS.ComputerVison.Core.Interfaces;
-using JAVS.ComputerVison.Core.Detectors;
+using JAVS.ComputerVision.Core.Interfaces;
+using JAVS.ComputerVision.Core.Detectors;
 
-namespace JAVS.ComputerVison.Core.MotionDetection
+namespace JAVS.ComputerVision.Core.MotionDetection
 {
     public class JavsMotion : BaseDetector, IDetect
     {

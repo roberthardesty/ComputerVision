@@ -1,4 +1,4 @@
-﻿using JAVS.ComputerVison.Core.Interfaces;
+﻿using JAVS.ComputerVision.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using Emgu.CV;
@@ -12,7 +12,7 @@ using Emgu.CV.Cuda;
 #endif
 
 
-namespace JAVS.ComputerVison.Core.Detectors.PedestrianDetection
+namespace JAVS.ComputerVision.Core.Detectors.PedestrianDetection
 {
     public class JavsPerson : BaseDetector, IDetect
     {

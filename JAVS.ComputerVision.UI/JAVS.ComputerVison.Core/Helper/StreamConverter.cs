@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
-namespace JAVS.ComputerVison.Core.Helper
+namespace JAVS.ComputerVision.Core.Helper
 {
     public class StreamConverter
     {

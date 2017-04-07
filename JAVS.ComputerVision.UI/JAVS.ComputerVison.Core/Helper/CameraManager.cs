@@ -1,6 +1,6 @@
 ﻿using Emgu.CV;
-using JAVS.ComputerVison.Core.Detectors;
-using JAVS.ComputerVison.Core.Interfaces;
+using JAVS.ComputerVision.Core.Detectors;
+using JAVS.ComputerVision.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
-namespace JAVS.ComputerVison.Core.Helper
+namespace JAVS.ComputerVision.Core.Helper
 {
     public class CameraManager
     {

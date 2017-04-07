@@ -1,12 +1,12 @@
 ﻿using Emgu.CV;
-using JAVS.ComputerVison.Core.Detectors;
+using JAVS.ComputerVision.Core.Detectors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JAVS.ComputerVison.Core.Interfaces
+namespace JAVS.ComputerVision.Core.Interfaces
 {
     public interface IDetect
     {

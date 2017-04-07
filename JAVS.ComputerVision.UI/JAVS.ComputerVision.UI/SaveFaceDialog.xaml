@@ -1,0 +1,20 @@
+﻿<Window x:Class="JAVS.ComputerVision.UI.SaveFaceDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JAVS.ComputerVision.UI"
+        mc:Ignorable="d"
+        Title="Save And Train Faces" Height="300" Width="300">
+    <Grid>
+        <Button x:Name="SaveFace" Content="Save Face"
+                IsEnabled="{Binding IsFaceDetected}"
+                HorizontalAlignment="Left" Height="22" Margin="10,202,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="TrainFace" Content="Train" HorizontalAlignment="Left" Height="22" Margin="10,237,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.54,1.543"/>
+        <Image x:Name="LoadedFile" Source="{Binding OriginalImage}"
+               HorizontalAlignment="Left" Height="130" Margin="142,11,0,0" VerticalAlignment="Top" Width="140"/>
+        <Image x:Name="LoadedFile_Copy" Source="{Binding FaceImage}"
+               HorizontalAlignment="Left" Height="75" Margin="170,184,0,0" VerticalAlignment="Top" Width="85"/>
+        <DataGrid x:Name="FaceDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Height="175" Width="120" Margin="10,10,0,0"/>
+    </Grid>
+</Window>

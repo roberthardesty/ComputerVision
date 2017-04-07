@@ -1,4 +1,4 @@
-﻿using JAVS.ComputerVison.Core.Interfaces;
+﻿using JAVS.ComputerVision.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +8,12 @@ using Emgu.CV;
 using System.Diagnostics;
 using System.Drawing;
 using Emgu.CV.Structure;
-using JAVS.ComputerVison.Core.Detectors;
+using JAVS.ComputerVision.Core.Detectors;
 #if !(__IOS__ || NETFX_CORE)
 using Emgu.CV.Cuda;
 #endif
 
-namespace JAVS.ComputerVison.Core.FaceDetection
+namespace JAVS.ComputerVision.Core.FaceDetection
 {
     public class JavsFacesEmgu : BaseDetector, IDetect
     {

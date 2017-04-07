@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JAVS.ComputerVison.Core.Detectors
+namespace JAVS.ComputerVision.Core.Detectors
 {
     public class BaseDetector
     {
