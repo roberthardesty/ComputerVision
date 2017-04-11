@@ -43,7 +43,17 @@ namespace JAVS.ComputerVision.UI
             new JavsPerson(),
         };
 
+        #region Constructor & Properties
+        public MainWindow()
+        {
+            InitializeComponent();
+            _camera = new CameraManager();
+            _cameraReady = _camera.CanCapture();
+            this.DataContext = this;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
+
         public IDetect SelectedDetector
         {
             get { return _selectedDetector; }
@@ -82,14 +92,8 @@ namespace JAVS.ComputerVision.UI
                 NotifyPropertyChanged();
             }
         }
-
-        public MainWindow()
-        {
-            InitializeComponent();
-            _camera = new CameraManager();
-            _cameraReady = _camera.CanCapture();
-            this.DataContext = this;
-        }
+#endregion
+        #region Methods
         //Does the needed freezing for threads and sets frames to bindable props
         void AttachFrames(object sender, EventArgs e)
         {
@@ -117,6 +121,15 @@ namespace JAVS.ComputerVision.UI
                 }
             }
         }
+        void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+#endregion
+        #region UserEvents
         void buttonCloseDevice_Click(object sender, RoutedEventArgs e)
         {
             if (_camera!=null)
@@ -141,9 +154,10 @@ namespace JAVS.ComputerVision.UI
         {
             if(_camera != null)
             { 
-                if(_selectedDetector == _detectors[1])
+                if(_selectedDetector == _detectors[0])
                 {
-
+                    var saveFace = new SaveFaceDialog();
+                    saveFace.Show();
                 }
                 else
                 {
@@ -152,13 +166,6 @@ namespace JAVS.ComputerVision.UI
                 }
             }
         }
-
-        void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
+        #endregion
     }
 }

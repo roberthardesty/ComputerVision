@@ -9,12 +9,15 @@
     <Grid>
         <Button x:Name="SaveFace" Content="Save Face"
                 IsEnabled="{Binding IsFaceDetected}"
-                HorizontalAlignment="Left" Height="22" Margin="10,202,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="TrainFace" Content="Train" HorizontalAlignment="Left" Height="22" Margin="10,237,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.54,1.543"/>
+                HorizontalAlignment="Left" Height="22" Margin="10,202,0,0" VerticalAlignment="Top" Width="120" Click="SaveFace_Click"/>
+        <Button x:Name="TrainFace" Content="Train" HorizontalAlignment="Left" Height="22" Margin="10,237,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.54,1.543" Click="TrainFace_Click"/>
         <Image x:Name="LoadedFile" Source="{Binding OriginalImage}"
                HorizontalAlignment="Left" Height="130" Margin="142,11,0,0" VerticalAlignment="Top" Width="140"/>
         <Image x:Name="LoadedFile_Copy" Source="{Binding FaceImage}"
                HorizontalAlignment="Left" Height="75" Margin="170,184,0,0" VerticalAlignment="Top" Width="85"/>
-        <DataGrid x:Name="FaceDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Height="175" Width="120" Margin="10,10,0,0"/>
+        <DataGrid x:Name="FaceDataGrid" DataContext="SavedFaces"
+                  HorizontalAlignment="Left" VerticalAlignment="Top" Height="155" Width="120" Margin="10,10,0,0"/>
+        <TextBox x:Name="UsernameBox" Text="{Binding Username, Mode=TwoWay}"
+                 HorizontalAlignment="Left" Height="21" Margin="10,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>

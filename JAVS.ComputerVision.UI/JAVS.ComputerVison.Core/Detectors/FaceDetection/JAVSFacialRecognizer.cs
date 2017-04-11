@@ -5,11 +5,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Emgu.CV;
+using Emgu.CV.Face;
 
 namespace JAVS.ComputerVision.Core.Detectors.FaceDetection
 {
     class JAVSFacialRecognizer : IDetect
     {
+        private EigenFaceRecognizer _faceRecognizer;
+
+
+        public JAVSFacialRecognizer()
+        {
+            _faceRecognizer = new EigenFaceRecognizer();
+            _faceRecognizer.Load(Environment.SpecialFolder.UserProfile + "\\Documents\\test-recognizer");
+        }
         public Dictionary<string, ParameterProfile> AdjustableParameters { get; set; }
 
         public string DisplayName
@@ -30,6 +39,7 @@ namespace JAVS.ComputerVision.Core.Detectors.FaceDetection
 
         public List<IImage> ProcessFrame(IImage original)
         {
+
             return null;
         }
     }

@@ -24,7 +24,7 @@ namespace JAVS.ComputerVision.Core.FacialRecognition
                 var exisitingUserId = GetUserId(username);
                 if (exisitingUserId == 0) exisitingUserId = GenerateUserId();
                 _sqLiteConnection.Open();
-                var insertQuery = "INSERT INTO faces(username, faceSample, userId) VALUES(@username,@faceSample,@userId)";
+                var insertQuery = "INSERT INTO Faces(username, faceSample, userId) VALUES(@username,@faceSample,@userId)";
                 var cmd = new SQLiteCommand(insertQuery, _sqLiteConnection);
                 cmd.Parameters.AddWithValue("username", username);
                 cmd.Parameters.AddWithValue("userId", exisitingUserId);
@@ -49,7 +49,7 @@ namespace JAVS.ComputerVision.Core.FacialRecognition
             try
             {
                _sqLiteConnection.Open();
-                var query = username.ToLower().Equals("ALL_USERS".ToLower()) ? "SELECT * FROM faces" : "SELECT * FROM faces WHERE username=@username";
+                var query = username.ToLower().Equals("ALL_USERS".ToLower()) ? "SELECT * FROM Faces" : "SELECT * FROM Faces WHERE username=@username";
                 var cmd = new SQLiteCommand(query, _sqLiteConnection);
                 if (!username.ToLower().Equals("ALL_USERS".ToLower())) cmd.Parameters.AddWithValue("username", username);
                 var result = cmd.ExecuteReader();
@@ -145,7 +145,7 @@ namespace JAVS.ComputerVision.Core.FacialRecognition
             try
             {
                 _sqLiteConnection.Open();
-                var query =  "SELECT DISTINCT username FROM faces";
+                var query =  "SELECT DISTINCT username FROM Faces";
                 var cmd = new SQLiteCommand(query, _sqLiteConnection);
                 var result = cmd.ExecuteReader();
                 while (result.Read())
@@ -172,7 +172,7 @@ namespace JAVS.ComputerVision.Core.FacialRecognition
             try
             {
                 _sqLiteConnection.Open();
-                var query = "DELETE FROM faces WHERE username=@username";
+                var query = "DELETE FROM Faces WHERE username=@username";
                 var cmd = new SQLiteCommand(query, _sqLiteConnection);
                 cmd.Parameters.AddWithValue("username", username);
                 var result = cmd.ExecuteNonQuery();

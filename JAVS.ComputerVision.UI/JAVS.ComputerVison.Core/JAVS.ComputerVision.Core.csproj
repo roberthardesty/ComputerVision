@@ -124,8 +124,10 @@
     <Compile Include="FacialRecognition\Face.cs" />
     <Compile Include="FacialRecognition\IDataStoreAccess.cs" />
     <Compile Include="FacialRecognition\RecognizerEngine.cs" />
+    <Compile Include="FacialRecognition\TrainingEngine.cs" />
     <Compile Include="Helper\CameraManager.cs" />
     <Compile Include="Helper\MatConverter.cs" />
+    <Compile Include="Helper\MyFileManager.cs" />
     <Compile Include="Helper\StreamConverter.cs" />
     <Compile Include="Interfaces\IDetect.cs" />
     <Compile Include="Detectors\MotionDetection\JavsMotion.cs" />
