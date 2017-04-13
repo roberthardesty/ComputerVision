@@ -73,11 +73,11 @@ namespace JAVS.ComputerVision.Core.Helper
             {
                 stream.Write(bytes, 0, bytes.Count());
 
-                using (Image<Gray,byte> source = new Image<Gray,byte>(new Bitmap(stream)))
-                {
-                    source.Resize(100, 100, Emgu.CV.CvEnum.Inter.Cubic);
-                    return source;
-                }
+                Image<Gray, byte> source = new Image<Gray, byte>(new Bitmap(stream));
+                
+                source.Resize(100, 100, Emgu.CV.CvEnum.Inter.Cubic);
+                return source;
+                
             }
         }
 

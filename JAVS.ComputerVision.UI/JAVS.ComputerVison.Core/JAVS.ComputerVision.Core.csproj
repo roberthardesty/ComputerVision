@@ -115,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Detectors\BaseDetector.cs" />
+    <Compile Include="Detectors\FaceDetection\JAVSFaceCropper.cs" />
     <Compile Include="Detectors\FaceDetection\JAVSFaceTrainer.cs" />
     <Compile Include="Detectors\FaceDetection\JAVSFacialRecognizer.cs" />
     <Compile Include="Detectors\ParameterProfile.cs" />

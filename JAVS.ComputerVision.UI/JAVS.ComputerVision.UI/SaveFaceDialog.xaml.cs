@@ -19,6 +19,8 @@ using JAVS.ComputerVision.Core.Helper;
 using Microsoft.Win32;
 using System.Drawing;
 using JAVS.ComputerVison.Core.Helper;
+using JAVS.ComputerVision.Core.Detectors.FaceDetection;
+using JAVS.ComputerVison.Core.FacialRecognition;
 
 namespace JAVS.ComputerVision.UI
 {
@@ -33,6 +35,8 @@ namespace JAVS.ComputerVision.UI
         private BitmapSource _imageFace;
         private DataStoreAccess _dataClient;
         private JavsFacesEmgu _detector;
+        private TrainingEngine _trainer;
+        private JAVSFacialRecognizer _recognizer;
         private CameraManager _camera;
         private List<Bitmap> _savedFaces = new List<Bitmap>();
         //private FaceTrainer _trainer;
@@ -48,6 +52,7 @@ namespace JAVS.ComputerVision.UI
                         _savedFaces.Add(StreamConverter.ByteToBitmap(face.Image));
 
             _detector = new JavsFacesEmgu();
+            _trainer = new TrainingEngine();
             _camera = new CameraManager();
             _camera.SetDetector(_detector);
             _cameraIsReady = _camera.CanCapture();
@@ -73,6 +78,9 @@ namespace JAVS.ComputerVision.UI
                 NotifyPropertyChanged();
             }
         }
+
+        public string ResultsString { get; set; }
+
         public bool IsFaceDetected { get { return true; } }
 
         public BitmapSource OriginalImage
@@ -141,14 +149,39 @@ namespace JAVS.ComputerVision.UI
 
         private void TrainFace_Click(object sender, RoutedEventArgs e)
         {
+            //Save all the current saved faces to file for quality check
             for(int i =0; i<_savedFaces.Count(); i++)
             {
                var success = MyFileManager.SaveImage(_savedFaces[i], i.ToString());
             }
+            //Get data ready for training and train.
+            List<Face> faces = _dataClient.CallFaces("ALL_USERS");
+            byte[][] faceImages = new byte[faces.Count()][];
+            int[] faceLabels = new int[faces.Count()];
 
+            for(int i = 0; i<faces.Count(); i++)
+            {
+                faceImages[i] = (byte[])faces[i].Image.Clone();
+                faceLabels[i] = faces[i].UserId;
+            }
+            //Echo results to UI
+            if (_trainer.Train(faceImages, faceLabels))
+                ResultsString = "Training Successfull";
+            else
+                ResultsString = "Training Failed";
+            NotifyPropertyChanged("ResultsString");
         }
 
+        private void TestRecognize_Click(object sender, RoutedEventArgs e)
+        {
+            _recognizer = new JAVSFacialRecognizer();
+
+            byte[] face = StreamConverter.ImageToByte(_imageFace.ToBitmap());
+            int foundUserId = _recognizer.RecognizeUser(face);
+            ResultsString = _dataClient.GetUsername(foundUserId);
+        }
         #endregion
+
 
     }
 }

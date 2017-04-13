@@ -20,10 +20,10 @@ namespace JAVS.ComputerVison.Core.FacialRecognition
             Image<Gray, byte>[] resizedFaces = new Image<Gray, byte>[faces.Length];
             for(int i = 0; i < faces.Length; i++)
             {
-                resizedFaces[i] = StreamConverter.ByteToImageResize(faces[i]);
+                resizedFaces[i] = StreamConverter.ByteToImageResize(faces[i]).Clone();
             }
             _faceRecognizer.Train(resizedFaces, labels);
-            _faceRecognizer.Save(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)+"\\Documents\\test-recognizer");
+            _faceRecognizer.Save(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)+"\\Documents\\test-recognizer.yaml");
             return true;
         }
     }

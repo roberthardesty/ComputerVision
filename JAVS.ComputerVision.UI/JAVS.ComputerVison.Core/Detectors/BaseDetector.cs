@@ -39,5 +39,18 @@ namespace JAVS.ComputerVision.Core.Detectors
 
             return copy;
         }
+
+        protected List<IImage> CopyAndCrop(IImage original, Rectangle[] shapes)
+        {
+            IImage copy = (IImage)original.Clone();
+            List<IImage> parts = new List<IImage>();
+            foreach (Rectangle shape in shapes)
+            {
+                ((Image<Bgr, byte>)copy).ROI = shape;
+                parts.Add(((Image<Bgr, byte>)copy).Copy());
+            }
+
+            return parts;
+        }
     }
 }

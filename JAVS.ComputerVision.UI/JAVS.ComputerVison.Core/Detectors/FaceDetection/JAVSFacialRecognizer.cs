@@ -6,10 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Emgu.CV;
 using Emgu.CV.Face;
+using Emgu.CV.Structure;
+using JAVS.ComputerVision.Core.Helper;
 
 namespace JAVS.ComputerVision.Core.Detectors.FaceDetection
 {
-    class JAVSFacialRecognizer : IDetect
+    public class JAVSFacialRecognizer : IDetect
     {
         private EigenFaceRecognizer _faceRecognizer;
 
@@ -17,7 +19,15 @@ namespace JAVS.ComputerVision.Core.Detectors.FaceDetection
         public JAVSFacialRecognizer()
         {
             _faceRecognizer = new EigenFaceRecognizer();
-            _faceRecognizer.Load(Environment.SpecialFolder.UserProfile + "\\Documents\\test-recognizer");
+            try
+            {
+                _faceRecognizer.Load(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Documents\\test-recognizer.yaml");
+
+            }
+            catch
+            {
+                var fail = "fail";
+            }
         }
         public Dictionary<string, ParameterProfile> AdjustableParameters { get; set; }
 
@@ -41,6 +51,12 @@ namespace JAVS.ComputerVision.Core.Detectors.FaceDetection
         {
 
             return null;
+        }
+
+        public int RecognizeUser(byte[] userImage)
+        {
+            Image<Gray, byte> convertedImage = StreamConverter.ByteToImageResize(userImage);
+            return _faceRecognizer.Predict(convertedImage).Label;
         }
     }
 }
