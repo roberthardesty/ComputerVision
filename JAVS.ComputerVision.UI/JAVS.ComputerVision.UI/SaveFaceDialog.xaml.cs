@@ -34,7 +34,7 @@ namespace JAVS.ComputerVision.UI
         private BitmapSource _imageOriginal;
         private BitmapSource _imageFace;
         private DataStoreAccess _dataClient;
-        private JavsFacesEmgu _detector;
+        private JAVSFaceCropper _detector;
         private TrainingEngine _trainer;
         private JAVSFacialRecognizer _recognizer;
         private CameraManager _camera;
@@ -51,15 +51,15 @@ namespace JAVS.ComputerVision.UI
                     foreach (var face in _dataClient.CallFaces(name))
                         _savedFaces.Add(StreamConverter.ByteToBitmap(face.Image));
 
-            _detector = new JavsFacesEmgu();
+            _detector = new JAVSFaceCropper();
             _trainer = new TrainingEngine();
             _camera = new CameraManager();
             _camera.SetDetector(_detector);
-            _cameraIsReady = _camera.CanCapture();
+            _cameraIsReady = _camera.IsReady();
 
             if (_cameraIsReady)
             {
-                _camera.GetImages();
+                _camera.Start();
                 _camera.NewFrame += AttachFrames;
             }
 
@@ -124,13 +124,24 @@ namespace JAVS.ComputerVision.UI
         {
             _camera.OriginalFrame.Freeze();
             OriginalImage = _camera.OriginalFrame;
-
-            _camera.ProcessedFrames[0].Freeze();
-            _imageFace = _camera.ProcessedFrames[0];
+            if(_camera.ProcessedFrames.Count() > 0)
+            {
+                _camera.ProcessedFrames[0].Freeze();
+                _imageFace = _camera.ProcessedFrames[0];
+            }
 
             NotifyPropertyChanged("FaceImage");
         }
 
+        void LoadFaces()
+        {
+            List<string> usernames = _dataClient.GetAllUsernames();
+            if (usernames != null)
+                foreach (var name in usernames)
+                    foreach (var face in _dataClient.CallFaces(name))
+                        _savedFaces.Add(StreamConverter.ByteToBitmap(face.Image));
+
+        }
         void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             if (PropertyChanged != null)
@@ -149,6 +160,7 @@ namespace JAVS.ComputerVision.UI
 
         private void TrainFace_Click(object sender, RoutedEventArgs e)
         {
+            LoadFaces();
             //Save all the current saved faces to file for quality check
             for(int i =0; i<_savedFaces.Count(); i++)
             {
@@ -179,9 +191,18 @@ namespace JAVS.ComputerVision.UI
             byte[] face = StreamConverter.ImageToByte(_imageFace.ToBitmap());
             int foundUserId = _recognizer.RecognizeUser(face);
             ResultsString = _dataClient.GetUsername(foundUserId);
+            NotifyPropertyChanged("ResultsString");
         }
+
         #endregion
 
+        private void OpenFile_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if(ofd.ShowDialog() == true)
+            {
 
+            }
+        }
     }
 }

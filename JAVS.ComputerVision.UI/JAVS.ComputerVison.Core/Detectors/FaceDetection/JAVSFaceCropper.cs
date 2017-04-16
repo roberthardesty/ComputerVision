@@ -30,7 +30,7 @@ namespace JAVS.ComputerVision.Core.FaceDetection
             LoadParameters();
         }
 
-        public string DisplayName { get { return "Face Detection (EmguCV)"; } }
+        public string DisplayName { get { return "Face Detection (Crop)"; } }
 
         public Dictionary<string, ParameterProfile> AdjustableParameters { get; set; }
 

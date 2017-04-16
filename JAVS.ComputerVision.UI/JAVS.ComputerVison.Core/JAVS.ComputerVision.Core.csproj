@@ -132,6 +132,7 @@
     <Compile Include="Helper\StreamConverter.cs" />
     <Compile Include="Interfaces\IDetect.cs" />
     <Compile Include="Detectors\MotionDetection\JavsMotion.cs" />
+    <Compile Include="Interfaces\ISourceManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

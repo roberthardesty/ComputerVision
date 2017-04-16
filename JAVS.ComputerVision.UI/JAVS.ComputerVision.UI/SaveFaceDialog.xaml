@@ -8,6 +8,9 @@
         Title="Save And Train Faces" Height="300" Width="300">
     <Grid>
         <Button x:Name="TestRecognize" Content="Test Recognition" HorizontalAlignment="Left" Height="22" Margin="10,25,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.54,1.543" Click="TestRecognize_Click"/>
+        <Button x:Name="OpenFile" Content="Open File" HorizontalAlignment="Left" Height="22" Margin="10,52,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.54,1.543" Click="OpenFile_Click"/>
+        <TextBox x:Name="UsernameBox" Text="{Binding Username, Mode=TwoWay}"
+                 HorizontalAlignment="Left" Height="21" Margin="10,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Button x:Name="SaveFace" Content="Save Face"
                 IsEnabled="{Binding IsFaceDetected}"
                 HorizontalAlignment="Left" Height="22" Margin="10,202,0,0" VerticalAlignment="Top" Width="120" Click="SaveFace_Click"/>
@@ -16,8 +19,6 @@
                HorizontalAlignment="Left" Height="130" Margin="142,11,0,0" VerticalAlignment="Top" Width="140"/>
         <Image x:Name="LoadedFile_Copy" Source="{Binding FaceImage}"
                HorizontalAlignment="Left" Height="75" Margin="170,184,0,0" VerticalAlignment="Top" Width="85"/>
-        <TextBox x:Name="UsernameBox" Text="{Binding Username, Mode=TwoWay}"
-                 HorizontalAlignment="Left" Height="21" Margin="10,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Label x:Name="Results" Content="{Binding ResultsString}"
                HorizontalAlignment="Left" Height="27" Margin="142,152,0,0" VerticalAlignment="Top" Width="140"/>
     </Grid>

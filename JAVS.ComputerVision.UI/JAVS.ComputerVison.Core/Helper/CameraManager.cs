@@ -1,6 +1,7 @@
 ﻿using Emgu.CV;
 using JAVS.ComputerVision.Core.Detectors;
 using JAVS.ComputerVision.Core.Interfaces;
+using JAVS.ComputerVison.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using System.Windows.Media.Imaging;
 
 namespace JAVS.ComputerVision.Core.Helper
 {
-    public class CameraManager
+    public class CameraManager : ISourceManager
     {
         private static VideoCapture _source;
         private IDetect _detectionManager;
@@ -42,7 +43,7 @@ namespace JAVS.ComputerVision.Core.Helper
             set { _originalFrame = value; }
         }
         //This allows you to make sure the camera is ready.
-        public bool CanCapture()
+        public bool IsReady()
         {
             try
             {               
@@ -63,10 +64,10 @@ namespace JAVS.ComputerVision.Core.Helper
             _detectionManager = detect;
         }
         //This starts the capture process and wires an event up to the source.
-        public void GetImages()
+        public void Start(int captureSource = 0, string path = null)
         {
             if(_source == null)
-                _source = new VideoCapture();
+                _source = new VideoCapture(captureSource);
             _source.Start();
             _source.ImageGrabbed -= ConvertFrame;
             _source.ImageGrabbed += ConvertFrame;
@@ -79,18 +80,13 @@ namespace JAVS.ComputerVision.Core.Helper
         void ConvertFrame(object sender, EventArgs e)
         {
             Mat capturedImage = new Mat();
-            _processedFrames = new List<BitmapSource>();
-            List<IImage> processedImages;
-
+            _processedFrames = new List<BitmapSource>();           
 
             _source.Retrieve(capturedImage, 0);
 
-            processedImages = _detectionManager.ProcessFrame(capturedImage);
-
-            foreach(IImage frame in processedImages)
-            {
-                _processedFrames.Add(MatConverter.ToBitmapSource(frame));
-            }
+            List<IImage> processedImages = _detectionManager.ProcessFrame(capturedImage);
+            processedImages.ForEach((img) =>
+            { _processedFrames.Add(MatConverter.ToBitmapSource(img)); });
 
             _originalFrame = MatConverter.ToBitmapSource(capturedImage);
             

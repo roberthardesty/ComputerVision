@@ -42,12 +42,13 @@ namespace JAVS.ComputerVision.Core.Detectors
 
         protected List<IImage> CopyAndCrop(IImage original, Rectangle[] shapes)
         {
-            IImage copy = (IImage)original.Clone();
+            Mat copy = (Mat)original.Clone();
+            Image<Gray, byte> convertedCopy = copy.ToImage<Gray, byte>();
             List<IImage> parts = new List<IImage>();
             foreach (Rectangle shape in shapes)
             {
-                ((Image<Bgr, byte>)copy).ROI = shape;
-                parts.Add(((Image<Bgr, byte>)copy).Copy());
+                convertedCopy.ROI = shape;
+                parts.Add(convertedCopy.Copy());
             }
 
             return parts;

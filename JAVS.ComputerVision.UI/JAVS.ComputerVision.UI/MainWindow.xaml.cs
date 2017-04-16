@@ -38,6 +38,7 @@ namespace JAVS.ComputerVision.UI
         private List<IDetect> _detectors = new List<IDetect>()
         {
             new JAVSFaceTrainer(),
+            new JAVSFaceCropper(),
             new JavsFacesEmgu(),
             new JavsMotion(),
             new JavsPerson(),
@@ -48,7 +49,7 @@ namespace JAVS.ComputerVision.UI
         {
             InitializeComponent();
             _camera = new CameraManager();
-            _cameraReady = _camera.CanCapture();
+            _cameraReady = _camera.IsReady();
             this.DataContext = this;
         }
 
@@ -145,7 +146,7 @@ namespace JAVS.ComputerVision.UI
         {
             if (_selectedDetector != null && _cameraReady)
             {
-                _camera.GetImages();
+                _camera.Start();
                 _camera.NewFrame += AttachFrames;
             }
         }

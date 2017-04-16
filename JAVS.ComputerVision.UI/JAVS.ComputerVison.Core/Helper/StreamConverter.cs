@@ -75,7 +75,7 @@ namespace JAVS.ComputerVision.Core.Helper
 
                 Image<Gray, byte> source = new Image<Gray, byte>(new Bitmap(stream));
                 
-                source.Resize(100, 100, Emgu.CV.CvEnum.Inter.Cubic);
+                source = source.Resize(100, 100, Emgu.CV.CvEnum.Inter.Cubic);
                 return source;
                 
             }
