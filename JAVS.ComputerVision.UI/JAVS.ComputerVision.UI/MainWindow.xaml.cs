@@ -39,6 +39,7 @@ namespace JAVS.ComputerVision.UI
         {
             new JAVSFaceTrainer(),
             new JAVSFaceCropper(),
+            new JAVSFacialRecognizer(),
             new JavsFacesEmgu(),
             new JavsMotion(),
             new JavsPerson(),
@@ -118,7 +119,7 @@ namespace JAVS.ComputerVision.UI
                 foreach (string key in _camera.CurrentParameters.Keys)
                 {
                     counter++;
-                    this.IncrementControlGrid.Children.Add(new LabeledIncrementor(_camera.CurrentParameters[key]) {Margin= new Thickness(0, 70*counter,0,0)});
+                    this.IncrementControlGrid.Children.Add(new LabeledIncrementor(_camera.CurrentParameters[key]) { Margin = new Thickness(0, 70 * counter, 0, 0) });
                 }
             }
         }
@@ -168,5 +169,10 @@ namespace JAVS.ComputerVision.UI
             }
         }
         #endregion
+
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            SetUpIncrementors();
+        }
     }
 }

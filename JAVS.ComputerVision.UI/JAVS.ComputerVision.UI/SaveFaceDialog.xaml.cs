@@ -38,18 +38,12 @@ namespace JAVS.ComputerVision.UI
         private TrainingEngine _trainer;
         private JAVSFacialRecognizer _recognizer;
         private CameraManager _camera;
-        private List<Bitmap> _savedFaces = new List<Bitmap>();
         //private FaceTrainer _trainer;
 
         #region Constructor & Properties
         public SaveFaceDialog()
         {
             _dataClient = new DataStoreAccess(@"C:\data\db\SQLite-Faces.db");
-            List<string> usernames = _dataClient.GetAllUsernames();
-            if (usernames != null)
-                foreach (var name in usernames)
-                    foreach (var face in _dataClient.CallFaces(name))
-                        _savedFaces.Add(StreamConverter.ByteToBitmap(face.Image));
 
             _detector = new JAVSFaceCropper();
             _trainer = new TrainingEngine();
@@ -109,38 +103,17 @@ namespace JAVS.ComputerVision.UI
             }
         }
 
-        public List<Bitmap> SavedFaces
-        {
-            get { return _savedFaces; }
-            set
-            {
-                _savedFaces = value;
-                NotifyPropertyChanged();
-            }
-        }
         #endregion
         #region Methods
         void AttachFrames(object sender, EventArgs e)
         {
             _camera.OriginalFrame.Freeze();
             OriginalImage = _camera.OriginalFrame;
-            if(_camera.ProcessedFrames.Count() > 0)
+            if (_camera.ProcessedFrames.Count() > 0)
             {
                 _camera.ProcessedFrames[0].Freeze();
-                _imageFace = _camera.ProcessedFrames[0];
+                FaceImage = _camera.ProcessedFrames[0];
             }
-
-            NotifyPropertyChanged("FaceImage");
-        }
-
-        void LoadFaces()
-        {
-            List<string> usernames = _dataClient.GetAllUsernames();
-            if (usernames != null)
-                foreach (var name in usernames)
-                    foreach (var face in _dataClient.CallFaces(name))
-                        _savedFaces.Add(StreamConverter.ByteToBitmap(face.Image));
-
         }
         void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
@@ -155,41 +128,30 @@ namespace JAVS.ComputerVision.UI
         void SaveFace_Click(object sender, RoutedEventArgs e)
         {
             byte[] face = StreamConverter.ImageToByte(_imageFace.ToBitmap());
-            _dataClient.SaveFace(_username, face);   
+            ResultsString = _dataClient.SaveFace(_username, face);   
         }
 
         private void TrainFace_Click(object sender, RoutedEventArgs e)
         {
-            LoadFaces();
+            List<Face> faces = _dataClient.CallFaces("ALL_USERS");
             //Save all the current saved faces to file for quality check
-            for(int i =0; i<_savedFaces.Count(); i++)
+            for (int i =0; i< faces.Count(); i++)
             {
-               var success = MyFileManager.SaveImage(_savedFaces[i], i.ToString());
+               var success = MyFileManager.SaveImage(StreamConverter.ByteToBitmap(faces[i].Image), i.ToString());
             }
             //Get data ready for training and train.
-            List<Face> faces = _dataClient.CallFaces("ALL_USERS");
-            byte[][] faceImages = new byte[faces.Count()][];
-            int[] faceLabels = new int[faces.Count()];
-
-            for(int i = 0; i<faces.Count(); i++)
-            {
-                faceImages[i] = (byte[])faces[i].Image.Clone();
-                faceLabels[i] = faces[i].UserId;
-            }
+            byte[][] faceImages = faces.Select(face => face.Image.Clone() as byte[]).ToArray();
+            int[] faceLabels = faces.Select(f => f.UserId).ToArray();
             //Echo results to UI
-            if (_trainer.Train(faceImages, faceLabels))
-                ResultsString = "Training Successfull";
-            else
-                ResultsString = "Training Failed";
+            ResultsString = _trainer.Train(faceImages, faceLabels)?
+                 "Training Successfull" : "Training Failed";
             NotifyPropertyChanged("ResultsString");
         }
 
         private void TestRecognize_Click(object sender, RoutedEventArgs e)
         {
             _recognizer = new JAVSFacialRecognizer();
-
-            byte[] face = StreamConverter.ImageToByte(_imageFace.ToBitmap());
-            int foundUserId = _recognizer.RecognizeUser(face);
+            int foundUserId = _recognizer.RecognizeUser(StreamConverter.ImageToByte(_imageFace.ToBitmap()));                
             ResultsString = _dataClient.GetUsername(foundUserId);
             NotifyPropertyChanged("ResultsString");
         }
@@ -201,6 +163,7 @@ namespace JAVS.ComputerVision.UI
             OpenFileDialog ofd = new OpenFileDialog();
             if(ofd.ShowDialog() == true)
             {
+                _camera.NewFrame -= AttachFrames;
 
             }
         }

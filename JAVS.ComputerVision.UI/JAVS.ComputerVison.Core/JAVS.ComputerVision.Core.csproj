@@ -160,7 +160,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Detectors\ColorDetection\" />
-    <Folder Include="Detectors\UpperTorsoDetection\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

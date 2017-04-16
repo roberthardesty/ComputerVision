@@ -61,5 +61,6 @@
             VerticalAlignment="Top"
             Width="515"
             Source="{Binding ProcessedImages[1]}"/>
+        <Button x:Name="btnRefresh" Content="Refresh" HorizontalAlignment="Left" Height="30" Margin="84,394,0,0" VerticalAlignment="Top" Width="45" Click="btnRefresh_Click"/>
     </Grid>
 </Window>

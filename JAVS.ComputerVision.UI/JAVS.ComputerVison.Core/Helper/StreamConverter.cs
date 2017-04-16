@@ -62,8 +62,7 @@ namespace JAVS.ComputerVision.Core.Helper
             {
                 stream.Write(bytes, 0, bytes.Count());
 
-                Bitmap source = new Bitmap(stream);
-                return source;
+                return new Bitmap(stream);
             }
         }
 
