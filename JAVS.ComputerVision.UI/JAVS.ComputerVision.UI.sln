@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JAVS.ComputerVision.UI", "J
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JAVS.ComputerVision.Core", "JAVS.ComputerVison.Core\JAVS.ComputerVision.Core.csproj", "{1BD936D4-4BF1-4342-84AA-EFFC02627E35}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageDatabaseUI", "ImageDatabaseUI\ImageDatabaseUI.csproj", "{FEC21567-4560-4CCD-B106-9AEF14F57405}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,18 @@ Global
 		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Release|x64.Build.0 = Release|x64
 		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Release|x86.ActiveCfg = Release|x86
 		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Release|x86.Build.0 = Release|x86
+		{FEC21567-4560-4CCD-B106-9AEF14F57405}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEC21567-4560-4CCD-B106-9AEF14F57405}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEC21567-4560-4CCD-B106-9AEF14F57405}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FEC21567-4560-4CCD-B106-9AEF14F57405}.Debug|x64.Build.0 = Debug|Any CPU
+		{FEC21567-4560-4CCD-B106-9AEF14F57405}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FEC21567-4560-4CCD-B106-9AEF14F57405}.Debug|x86.Build.0 = Debug|Any CPU
+		{FEC21567-4560-4CCD-B106-9AEF14F57405}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEC21567-4560-4CCD-B106-9AEF14F57405}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEC21567-4560-4CCD-B106-9AEF14F57405}.Release|x64.ActiveCfg = Release|Any CPU
+		{FEC21567-4560-4CCD-B106-9AEF14F57405}.Release|x64.Build.0 = Release|Any CPU
+		{FEC21567-4560-4CCD-B106-9AEF14F57405}.Release|x86.ActiveCfg = Release|Any CPU
+		{FEC21567-4560-4CCD-B106-9AEF14F57405}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

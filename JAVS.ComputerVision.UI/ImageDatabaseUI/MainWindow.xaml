@@ -1,0 +1,42 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ImageDatabaseUI"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="ImageDatabaseUI.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="700" Width="1300">
+    <Grid>
+        <Border BorderBrush="Black" BorderThickness="1">
+            <Grid HorizontalAlignment="Left" Height="645" Margin="172,10,0,0" VerticalAlignment="Top" Width="1100">
+
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+
+
+            </Grid>
+        </Border>
+
+        <Border BorderBrush="Green" BorderThickness="1,1,1,1"  
+                    Height="{Binding ActualHeight, ElementName=ControlStackPanel}">
+            <StackPanel HorizontalAlignment="Left" Height="645" Margin="39,46,0,-48" VerticalAlignment="Top" Width="162" 
+                    x:Name="ControlStackPanel">
+                <Button x:Name="OpenDatabase" Content="Open DB" HorizontalAlignment="Left" Height="28" Margin="9,9,0,0" VerticalAlignment="Top" Width="142" Click="OpenDatabase_Click"/>
+                <Label Content="Page#" HorizontalAlignment="Right" Height="28" Width="51" Margin="0,0,11,0"/>
+                <xctk:IntegerUpDown Margin="100,5,11,0" Height="56" Value=""/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
