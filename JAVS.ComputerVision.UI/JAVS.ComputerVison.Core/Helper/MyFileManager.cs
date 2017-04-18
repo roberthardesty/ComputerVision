@@ -17,27 +17,33 @@ namespace JAVS.ComputerVison.Core.Helper
 {
     public class MyFileManager : ISourceManager
     {
+        private string _filepath;
         private IDetect _detectionManager;
+        private VideoCapture _videoFile;
 
         public event EventHandler NewFrame;
 
         public Dictionary<string, ParameterProfile> CurrentParameters
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+        { get {return _detectionManager.AdjustableParameters; }
+          set { _detectionManager.AdjustableParameters = value; }
         }
 
         public bool IsReady()
         {
             return true;
         }
+
+        public string FilePath
+        {
+            get { return _filepath; }
+            set
+            {
+                if (File.Exists(value))
+                    _filepath = value;
+            }
+        }
+
+        public List<BitmapSource> ProcessedFrames { get; set; }
 
         public MyFileManager() { }
         public MyFileManager(IDetect detector)
@@ -78,12 +84,43 @@ namespace JAVS.ComputerVison.Core.Helper
 
         public void Start(int captureSource, string path)
         {
-            throw new NotImplementedException();
+            if (_videoFile != null && _videoFile.IsOpened) return;
+
+            _videoFile = new VideoCapture(_filepath);
+            _videoFile.Start();
+            _videoFile.ImageGrabbed -= ProcessFrame;
+            _videoFile.ImageGrabbed += ProcessFrame;
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            if (_videoFile == null) return;
+            _videoFile.ImageGrabbed -= ProcessFrame;
+            _videoFile.Stop();
+            _videoFile.Dispose();
+            _videoFile = null;
+        }
+        #endregion
+
+        #region Private Methods
+        void ProcessFrame(object sender, EventArgs e)
+        {
+            Mat frame = new Mat();
+            try
+            {
+                _videoFile.Retrieve(frame, 0);
+
+            }
+            catch(Exception ex)
+            {
+
+            }
+            ProcessedFrames = new List<BitmapSource>() { MatConverter.ToBitmapSource(frame) };
+            List<IImage> proccessedFrames = _detectionManager.ProcessFrame(frame);
+            proccessedFrames.ForEach(pFrame =>
+            { ProcessedFrames.Add(MatConverter.ToBitmapSource(pFrame)); });
+
+            NewFrame.Invoke(null, new EventArgs());
         }
         #endregion
     }

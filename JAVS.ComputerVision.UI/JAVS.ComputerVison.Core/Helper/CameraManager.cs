@@ -80,9 +80,16 @@ namespace JAVS.ComputerVision.Core.Helper
         void ConvertFrame(object sender, EventArgs e)
         {
             Mat capturedImage = new Mat();
-            _processedFrames = new List<BitmapSource>();           
+            _processedFrames = new List<BitmapSource>();
+            try
+            {
+                _source.Retrieve(capturedImage, 0);
 
-            _source.Retrieve(capturedImage, 0);
+            }
+            catch (NullReferenceException ne)
+            {
+
+            }
 
             List<IImage> processedImages = _detectionManager.ProcessFrame(capturedImage);
             processedImages.ForEach((img) =>
@@ -95,6 +102,7 @@ namespace JAVS.ComputerVision.Core.Helper
         //This ends the capture process and removes the videoCapture class from memory
         public void Dispose()
         {
+            if (_source == null) return;
             _source.ImageGrabbed -= ConvertFrame;
             _source.Stop();
             _source.Dispose();

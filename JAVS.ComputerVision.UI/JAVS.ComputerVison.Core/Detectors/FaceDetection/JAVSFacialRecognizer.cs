@@ -90,14 +90,7 @@ namespace JAVS.ComputerVision.Core.Detectors.FaceDetection
                 {
                     int foundFaceId = RecognizeUser(StreamConverter.ImageToByte(croppedFaces[i].Bitmap));
                     string foundFaceName = _dataClient.GetUsername(foundFaceId);
-                    AdjustableParameters["Face" + i.ToString()] = new ParameterProfile
-                    {
-                        Description = foundFaceName,                       
-                        MaxValue = 4,
-                        MinValue = 0,
-                        CurrentValue = i,
-                        Interval = 1
-                    };
+                    CvInvoke.PutText(original, foundFaceName, faces[i].Location - new Size(0, faces[i].Height/3), Emgu.CV.CvEnum.FontFace.HersheyTriplex, 2, new Bgr(Color.RoyalBlue).MCvScalar);             
                 }
                 return croppedFaces;
             }

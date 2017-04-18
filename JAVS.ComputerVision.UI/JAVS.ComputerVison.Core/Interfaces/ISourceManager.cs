@@ -12,7 +12,7 @@ namespace JAVS.ComputerVison.Core.Interfaces
     interface ISourceManager
     {
         Dictionary<string, ParameterProfile> CurrentParameters { get; set; }
-
+        List<BitmapSource> ProcessedFrames { get; set; }
         event EventHandler NewFrame;
         bool IsReady();
         void SetDetector(IDetect detector);

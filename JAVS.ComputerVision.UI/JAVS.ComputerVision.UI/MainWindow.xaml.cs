@@ -158,6 +158,7 @@ namespace JAVS.ComputerVision.UI
             { 
                 if(_selectedDetector == _detectors[0])
                 {
+                    _camera.Dispose();
                     var saveFace = new SaveFaceDialog();
                     saveFace.Show();
                 }
