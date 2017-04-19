@@ -31,7 +31,7 @@
                   Grid.Column="0"
                   HorizontalAlignment="Center"
                   VerticalAlignment="Center"
-                  Margin="0,100,0,0" SelectionChanged="DetectorSelector_SelectionChanged"/>
+                  Margin="0,150,0,0" SelectionChanged="DetectorSelector_SelectionChanged"/>
         <Grid x:Name="IncrementControlGrid"
               VerticalAlignment="Center"
               Margin="0,200,0,0">
@@ -61,6 +61,8 @@
             VerticalAlignment="Top"
             Width="515"
             Source="{Binding ProcessedImages[1]}"/>
-        <Button x:Name="btnRefresh" Content="Refresh" HorizontalAlignment="Left" Height="30" Margin="84,394,0,0" VerticalAlignment="Top" Width="45" Click="btnRefresh_Click"/>
+        <Button x:Name="buttonOpenFile"
+            Content="Open File" 
+            Height="20" Width="250" Margin="0,100,0,0" Click="buttonOpenFile_Click"/>
     </Grid>
 </Window>

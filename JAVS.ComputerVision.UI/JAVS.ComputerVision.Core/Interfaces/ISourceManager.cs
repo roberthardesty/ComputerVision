@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
-namespace JAVS.ComputerVison.Core.Interfaces
+namespace JAVS.ComputerVision.Core.Interfaces
 {
-    interface ISourceManager
+    public interface ISourceManager
     {
         Dictionary<string, ParameterProfile> CurrentParameters { get; set; }
         List<BitmapSource> ProcessedFrames { get; set; }

@@ -32,7 +32,7 @@ namespace JAVS.ComputerVision.UI
     {
         private bool _cameraReady;
         private BitmapSource _imageOriginal;
-        private CameraManager _camera;
+        private ISourceManager _camera;
         private List<BitmapSource> _processedImages;
         private IDetect _selectedDetector;
         private List<IDetect> _detectors = new List<IDetect>()
@@ -151,7 +151,10 @@ namespace JAVS.ComputerVision.UI
                 _camera.NewFrame += AttachFrames;
             }
         }
+        void buttonOpenFile_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
         void DetectorSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(_camera != null)
@@ -170,10 +173,5 @@ namespace JAVS.ComputerVision.UI
             }
         }
         #endregion
-
-        private void btnRefresh_Click(object sender, RoutedEventArgs e)
-        {
-            SetUpIncrementors();
-        }
     }
 }
