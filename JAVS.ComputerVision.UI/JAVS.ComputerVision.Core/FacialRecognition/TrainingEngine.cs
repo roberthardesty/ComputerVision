@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JAVS.ComputerVison.Core.FacialRecognition
+namespace JAVS.ComputerVision.Core.FacialRecognition
 {
     public class TrainingEngine
     {

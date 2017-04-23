@@ -2,7 +2,6 @@
 using Emgu.CV.Structure;
 using JAVS.ComputerVision.Core.Helper;
 using JAVS.ComputerVision.Core.Interfaces;
-using JAVS.ComputerVison.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using JAVS.ComputerVision.Core.Detectors;
 
-namespace JAVS.ComputerVison.Core.Helper
+namespace JAVS.ComputerVision.Core.Helper
 {
     public class MyFileManager : ISourceManager
     {
@@ -42,9 +41,8 @@ namespace JAVS.ComputerVison.Core.Helper
                     _filepath = value;
             }
         }
-
+        public BitmapSource OriginalFrame { get; set; }
         public List<BitmapSource> ProcessedFrames { get; set; }
-
         public MyFileManager() { }
         public MyFileManager(IDetect detector)
         {
@@ -84,12 +82,17 @@ namespace JAVS.ComputerVison.Core.Helper
 
         public void Start(int captureSource, string path)
         {
-            if (_videoFile != null && _videoFile.IsOpened) return;
+           // if (_videoFile != null && _videoFile.IsOpened) return;
 
-            _videoFile = new VideoCapture(_filepath);
+            _videoFile = new VideoCapture(path);
             _videoFile.Start();
             _videoFile.ImageGrabbed -= ProcessFrame;
             _videoFile.ImageGrabbed += ProcessFrame;
+             SourceStatistics stats = GetVideoFileProperties();
+            stats.FPS = 10;
+            stats.FrameHeight = 480;
+            stats.FrameWidth = 600;
+            SetVideoFileProperties(stats);
         }
 
         public void Dispose()
@@ -109,19 +112,32 @@ namespace JAVS.ComputerVison.Core.Helper
             try
             {
                 _videoFile.Retrieve(frame, 0);
+                var props = GetVideoFileProperties();
 
             }
             catch(Exception ex)
             {
 
             }
-            ProcessedFrames = new List<BitmapSource>() { MatConverter.ToBitmapSource(frame) };
+            OriginalFrame = MatConverter.ToBitmapSource(frame);
+            ProcessedFrames = new List<BitmapSource>();
             List<IImage> proccessedFrames = _detectionManager.ProcessFrame(frame);
             proccessedFrames.ForEach(pFrame =>
             { ProcessedFrames.Add(MatConverter.ToBitmapSource(pFrame)); });
 
             NewFrame.Invoke(null, new EventArgs());
         }
+
+        SourceStatistics GetVideoFileProperties()
+        {
+            return new SourceStatistics(_videoFile);
+        }
+        void SetVideoFileProperties(SourceStatistics stats)
+        {
+            foreach (var stat in stats.AllStats.Keys)
+                _videoFile.SetCaptureProperty(stat, stats.AllStats[stat]);
+        }
         #endregion
     }
+ 
 }

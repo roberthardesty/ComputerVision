@@ -18,9 +18,10 @@ using JAVS.ComputerVision.Core.FaceDetection;
 using JAVS.ComputerVision.Core.Helper;
 using Microsoft.Win32;
 using System.Drawing;
-using JAVS.ComputerVison.Core.Helper;
+using JAVS.ComputerVision.Core.Helper;
 using JAVS.ComputerVision.Core.Detectors.FaceDetection;
-using JAVS.ComputerVison.Core.FacialRecognition;
+using JAVS.ComputerVision.Core.FacialRecognition;
+using JAVS.ComputerVision.Core.Interfaces;
 
 namespace JAVS.ComputerVision.UI
 {
@@ -37,7 +38,7 @@ namespace JAVS.ComputerVision.UI
         private JAVSFaceCropper _detector;
         private TrainingEngine _trainer;
         private JAVSFacialRecognizer _recognizer;
-        private CameraManager _camera;
+        private ISourceManager _camera;
         //private FaceTrainer _trainer;
 
         #region Constructor & Properties
@@ -160,12 +161,23 @@ namespace JAVS.ComputerVision.UI
 
         private void OpenFile_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            if(ofd.ShowDialog() == true)
+            if (_camera != null)
             {
                 _camera.NewFrame -= AttachFrames;
+                _camera.Dispose();
+                FaceImage = null;
+                OriginalImage = null;
+            }
+            OpenFileDialog ofd = new OpenFileDialog();
 
+            if (ofd.ShowDialog() == true)
+            {
+                _camera = new MyFileManager();
+                _camera.SetDetector(_detector);
+                _camera.Start(0, ofd.FileName);
+                _camera.NewFrame += AttachFrames;
             }
         }
     }
 }
+

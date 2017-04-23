@@ -21,9 +21,9 @@ namespace JAVS.ComputerVision.Core.FaceDetection
 
 //      private string uppertorsoFileName = @"C:\Users\roberth\MyProjects\ComputerVision\JAVS.ComputerVision.UI\JAVS.ComputerVison.Core\Data\CascadeData\haarcascade_fullbody.xml";
 
-        private string faceFileName = @"C:\Users\roberth\MyProjects\ComputerVision\JAVS.ComputerVision.UI\JAVS.ComputerVison.Core\Data\CascadeData\haarcascade_frontalface_default.xml";
+        private string faceFileName = @"C:\Users\roberth\MyProjects\ComputerVision\JAVS.ComputerVision.UI\JAVS.ComputerVision.Core\Data\CascadeData\haarcascade_frontalface_default.xml";
 
-        private string eyeFileName = @"C:\Users\roberth\MyProjects\ComputerVision\JAVS.ComputerVision.UI\JAVS.ComputerVison.Core\Data\CascadeData\haarcascade_eye_tree_eyeglasses.xml";
+        private string eyeFileName = @"C:\Users\roberth\MyProjects\ComputerVision\JAVS.ComputerVision.UI\JAVS.ComputerVision.Core\Data\CascadeData\haarcascade_eye_tree_eyeglasses.xml";
 
         public JavsFacesEmgu()
         {

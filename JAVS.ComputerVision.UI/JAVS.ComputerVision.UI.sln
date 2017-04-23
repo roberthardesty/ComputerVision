@@ -5,9 +5,9 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JAVS.ComputerVision.UI", "JAVS.ComputerVision.UI\JAVS.ComputerVision.UI.csproj", "{01C566ED-76B1-4E4D-BFE3-54D9FB00C99C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JAVS.ComputerVision.Core", "JAVS.ComputerVison.Core\JAVS.ComputerVision.Core.csproj", "{1BD936D4-4BF1-4342-84AA-EFFC02627E35}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageDatabaseUI", "ImageDatabaseUI\ImageDatabaseUI.csproj", "{FEC21567-4560-4CCD-B106-9AEF14F57405}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JAVS.ComputerVision.Core", "JAVS.ComputerVision.Core\JAVS.ComputerVision.Core.csproj", "{1BD936D4-4BF1-4342-84AA-EFFC02627E35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,18 +31,6 @@ Global
 		{01C566ED-76B1-4E4D-BFE3-54D9FB00C99C}.Release|x64.Build.0 = Release|x64
 		{01C566ED-76B1-4E4D-BFE3-54D9FB00C99C}.Release|x86.ActiveCfg = Release|x86
 		{01C566ED-76B1-4E4D-BFE3-54D9FB00C99C}.Release|x86.Build.0 = Release|x86
-		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Debug|x64.ActiveCfg = Debug|x64
-		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Debug|x64.Build.0 = Debug|x64
-		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Debug|x86.ActiveCfg = Debug|x86
-		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Debug|x86.Build.0 = Debug|x86
-		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Release|x64.ActiveCfg = Release|x64
-		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Release|x64.Build.0 = Release|x64
-		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Release|x86.ActiveCfg = Release|x86
-		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Release|x86.Build.0 = Release|x86
 		{FEC21567-4560-4CCD-B106-9AEF14F57405}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FEC21567-4560-4CCD-B106-9AEF14F57405}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEC21567-4560-4CCD-B106-9AEF14F57405}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -55,6 +43,18 @@ Global
 		{FEC21567-4560-4CCD-B106-9AEF14F57405}.Release|x64.Build.0 = Release|Any CPU
 		{FEC21567-4560-4CCD-B106-9AEF14F57405}.Release|x86.ActiveCfg = Release|Any CPU
 		{FEC21567-4560-4CCD-B106-9AEF14F57405}.Release|x86.Build.0 = Release|Any CPU
+		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Debug|x64.ActiveCfg = Debug|x64
+		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Debug|x64.Build.0 = Debug|x64
+		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Debug|x86.ActiveCfg = Debug|x86
+		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Debug|x86.Build.0 = Debug|x86
+		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Release|x64.ActiveCfg = Release|x64
+		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Release|x64.Build.0 = Release|x64
+		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Release|x86.ActiveCfg = Release|x86
+		{1BD936D4-4BF1-4342-84AA-EFFC02627E35}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

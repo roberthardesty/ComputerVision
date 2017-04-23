@@ -12,6 +12,7 @@ namespace JAVS.ComputerVision.Core.Interfaces
     public interface ISourceManager
     {
         Dictionary<string, ParameterProfile> CurrentParameters { get; set; }
+        BitmapSource OriginalFrame { get; set; }
         List<BitmapSource> ProcessedFrames { get; set; }
         event EventHandler NewFrame;
         bool IsReady();

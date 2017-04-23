@@ -210,8 +210,8 @@
     <None Include="Controls\App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\JAVS.ComputerVison.Core\JAVS.ComputerVision.Core.csproj">
-      <Project>{1BD936D4-4BF1-4342-84AA-EFFC02627E35}</Project>
+    <ProjectReference Include="..\JAVS.ComputerVision.Core\JAVS.ComputerVision.Core.csproj">
+      <Project>{1bd936d4-4bf1-4342-84aa-effc02627e35}</Project>
       <Name>JAVS.ComputerVision.Core</Name>
     </ProjectReference>
   </ItemGroup>

@@ -22,6 +22,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
+using JAVS.ComputerVision.Core;
 
 namespace JAVS.ComputerVision.UI
 {
@@ -30,7 +32,6 @@ namespace JAVS.ComputerVision.UI
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        private bool _cameraReady;
         private BitmapSource _imageOriginal;
         private ISourceManager _camera;
         private List<BitmapSource> _processedImages;
@@ -49,8 +50,6 @@ namespace JAVS.ComputerVision.UI
         public MainWindow()
         {
             InitializeComponent();
-            _camera = new CameraManager();
-            _cameraReady = _camera.IsReady();
             this.DataContext = this;
         }
 
@@ -145,27 +144,55 @@ namespace JAVS.ComputerVision.UI
 
         void buttonOpenDevice_Click(object sender, RoutedEventArgs e)
         {
-            if (_selectedDetector != null && _cameraReady)
+            if (_camera != null)
             {
+                _camera.NewFrame -= AttachFrames;
+                _camera.Dispose();
+                ProcessedImages = null;
+                OriginalImage = null;
+            }
+
+            _camera = new ExperimentalManager();
+
+            if (_selectedDetector != null && _camera.IsReady())
+            {
+                _camera.SetDetector(_selectedDetector);
                 _camera.Start();
                 _camera.NewFrame += AttachFrames;
             }
         }
         void buttonOpenFile_Click(object sender, RoutedEventArgs e)
         {
+            if (_camera != null)
+            {
+                _camera.NewFrame -= AttachFrames;
+                _camera.Dispose();
+                ProcessedImages = null;
+                OriginalImage = null;
+            }
+            _camera = new MyFileManager();
+            if(_selectedDetector != null)
+            {
+                OpenFileDialog ofd = new OpenFileDialog();
+                if (ofd.ShowDialog() == true)
+                {
+                    _camera.SetDetector(_selectedDetector);
+                    _camera.Start(0,ofd.FileName);
+                    _camera.NewFrame += AttachFrames;
+                }
 
+            }
         }
         void DetectorSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(_camera != null)
             { 
                 if(_selectedDetector == _detectors[0])
                 {
-                    _camera.Dispose();
+                    _camera?.Dispose();
                     var saveFace = new SaveFaceDialog();
                     saveFace.Show();
                 }
-                else
+                else if (_camera != null)
                 {
                     _camera.SetDetector(_selectedDetector);
                     SetUpIncrementors();

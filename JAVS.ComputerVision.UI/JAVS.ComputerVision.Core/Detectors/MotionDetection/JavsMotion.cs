@@ -37,25 +37,25 @@ namespace JAVS.ComputerVision.Core.MotionDetection
             AdjustableParameters["MinMotionArea"] = new ParameterProfile
             {
                 Description = "Minimum Motion Size Threshold",
-                MaxValue = 1000,
+                MaxValue = 10000,
                 MinValue = 5,
-                CurrentValue = 100,
-                Interval = 1
+                CurrentValue = 1000,
+                Interval = 100
             };
             AdjustableParameters["MinMotionDistance"] = new ParameterProfile
             {
                 Description = "Minimum Motion Distance Threshold",
                 MaxValue = 1,
                 MinValue = 0.005,
-                CurrentValue = 0.05,
-                Interval = 0.005
+                CurrentValue = 0.1,
+                Interval = 0.5
             };
             //Try out various background subtractors
             _backgroundSubtractor = new BackgroundSubtractorMOG2();
             //Can the parameters taken by this constructor be adjusted during capture?
             _motionHistory = new MotionHistory(
-                1.0, //in second, the duration of motion history you wants to keep
-                0.05, //in second, maxDelta for cvCalcMotionGradient
+                .2, //in second, the duration of motion history you wants to keep
+                0.1, //in second, maxDelta for cvCalcMotionGradient
                 0.5); //in second, minDelta for cvCalcMotionGradient    
         }
 

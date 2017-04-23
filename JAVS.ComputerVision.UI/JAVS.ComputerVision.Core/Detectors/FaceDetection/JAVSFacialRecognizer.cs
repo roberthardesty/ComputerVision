@@ -18,7 +18,7 @@ namespace JAVS.ComputerVision.Core.Detectors.FaceDetection
         private DataStoreAccess _dataClient;
         private EigenFaceRecognizer _faceRecognizer;
         private string _faceFileName => Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + 
-            @"\MyProjects\ComputerVision\JAVS.ComputerVision.UI\JAVS.ComputerVison.Core\Data\CascadeData\haarcascade_frontalface_default.xml";
+            @"\MyProjects\ComputerVision\JAVS.ComputerVision.UI\JAVS.ComputerVision.Core\Data\CascadeData\haarcascade_frontalface_default.xml";
 
         public JAVSFacialRecognizer()
         {
@@ -86,13 +86,14 @@ namespace JAVS.ComputerVision.Core.Detectors.FaceDetection
 
                 }
                 List<IImage> croppedFaces = CopyAndCrop(original, faces.ToArray());
+                IImage originalCopy = original.Clone() as IImage;
                 for(int i = 0; i < croppedFaces.Count(); i++)
                 {
                     int foundFaceId = RecognizeUser(StreamConverter.ImageToByte(croppedFaces[i].Bitmap));
                     string foundFaceName = _dataClient.GetUsername(foundFaceId);
-                    CvInvoke.PutText(original, foundFaceName, faces[i].Location - new Size(0, faces[i].Height/3), Emgu.CV.CvEnum.FontFace.HersheyTriplex, 2, new Bgr(Color.RoyalBlue).MCvScalar);             
+                    CvInvoke.PutText(originalCopy, foundFaceName, faces[i].Location - new Size(0, faces[i].Height/3), Emgu.CV.CvEnum.FontFace.HersheyTriplex, 2, new Bgr(Color.RoyalBlue).MCvScalar);             
                 }
-                return croppedFaces;
+                return new List<IImage>() { originalCopy };
             }
         }
 

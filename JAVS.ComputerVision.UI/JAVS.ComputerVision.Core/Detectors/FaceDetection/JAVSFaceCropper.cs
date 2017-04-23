@@ -21,9 +21,9 @@ namespace JAVS.ComputerVision.Core.FaceDetection
 
 //      private string uppertorsoFileName = @"C:\Users\roberth\MyProjects\ComputerVision\JAVS.ComputerVision.UI\JAVS.ComputerVison.Core\Data\CascadeData\haarcascade_fullbody.xml";
 
-        private string faceFileName = @"C:\Users\roberth\MyProjects\ComputerVision\JAVS.ComputerVision.UI\JAVS.ComputerVison.Core\Data\CascadeData\haarcascade_frontalface_default.xml";
+        private string faceFileName = @"C:\Users\roberth\MyProjects\ComputerVision\JAVS.ComputerVision.UI\JAVS.ComputerVision.Core\Data\CascadeData\haarcascade_frontalface_default.xml";
 
-        private string eyeFileName = @"C:\Users\roberth\MyProjects\ComputerVision\JAVS.ComputerVision.UI\JAVS.ComputerVison.Core\Data\CascadeData\haarcascade_eye_tree_eyeglasses.xml";
+        private string eyeFileName = @"C:\Users\roberth\MyProjects\ComputerVision\JAVS.ComputerVision.UI\JAVS.ComputerVision.Core\Data\CascadeData\haarcascade_eye_tree_eyeglasses.xml";
 
         public JAVSFaceCropper()
         {
@@ -146,7 +146,7 @@ namespace JAVS.ComputerVision.Core.FaceDetection
                 Description = "Ratio of the new scale to the old scale when stepping up scales",
                 MaxValue = 3,
                 MinValue = 1.001,
-                CurrentValue = 1.1,
+                CurrentValue = 1.3,
                 Interval = 0.001
             };
             AdjustableParameters["MinimumNieghbors"] = new ParameterProfile
@@ -154,7 +154,7 @@ namespace JAVS.ComputerVision.Core.FaceDetection
                 Description = "Minimum number of nearby matching features to qualify as face",
                 MaxValue = 25,
                 MinValue = 1,
-                CurrentValue = 7,
+                CurrentValue = 10,
                 Interval = 1
             };
             AdjustableParameters["MinimumSearchSize"] = new ParameterProfile
@@ -162,7 +162,7 @@ namespace JAVS.ComputerVision.Core.FaceDetection
                 Description = "Minimum Length/Width of Search Square in pixels",
                 MaxValue = 200,
                 MinValue = 1,
-                CurrentValue = 40,
+                CurrentValue = 100,
                 Interval = 1
             };
             AdjustableParameters["BoundsX"] = new ParameterProfile

@@ -7,8 +7,8 @@
     <ProjectGuid>{1BD936D4-4BF1-4342-84AA-EFFC02627E35}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>JAVS.ComputerVison.Core</RootNamespace>
-    <AssemblyName>JAVS.ComputerVison.Core</AssemblyName>
+    <RootNamespace>JAVS.ComputerVision.Core</RootNamespace>
+    <AssemblyName>JAVS.ComputerVision.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -121,6 +121,8 @@
     <Compile Include="Detectors\ParameterProfile.cs" />
     <Compile Include="Detectors\FaceDetection\JavsFacesEmgu.cs" />
     <Compile Include="Detectors\PedestrianDetection\JavsPerson.cs" />
+    <Compile Include="Detectors\SourceStatistics.cs" />
+    <Compile Include="ExperimentalManager.cs" />
     <Compile Include="FacialRecognition\DataStoreAccess.cs" />
     <Compile Include="FacialRecognition\Face.cs" />
     <Compile Include="FacialRecognition\IDataStoreAccess.cs" />

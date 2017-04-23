@@ -60,7 +60,7 @@
             Margin="62.2,370,-550.4,0"
             VerticalAlignment="Top"
             Width="515"
-            Source="{Binding ProcessedImages[1]}"/>
+            Source="{Binding ProcessedImages[0]}"/>
         <Button x:Name="buttonOpenFile"
             Content="Open File" 
             Height="20" Width="250" Margin="0,100,0,0" Click="buttonOpenFile_Click"/>

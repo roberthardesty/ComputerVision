@@ -1,7 +1,6 @@
 ﻿using Emgu.CV;
 using JAVS.ComputerVision.Core.Detectors;
 using JAVS.ComputerVision.Core.Interfaces;
-using JAVS.ComputerVison.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
